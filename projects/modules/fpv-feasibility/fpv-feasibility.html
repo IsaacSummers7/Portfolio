@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Floating Solar Feasibility at Bewl Water | Isaac Summers</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}]});"></script>
+
+<link rel="stylesheet" href="../../../styles.css">
+<link rel="stylesheet" href="fpv-feasibility.css">
+</head>
+
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="../../../index.html" class="logo">← Isaac Summers</a>
+    <div class="nav-links"><a href="../../../projects.html">Projects</a></div>
+  </div>
+</nav>
+
+<div class="module-wrapper">
+
+<section class="module-hero">
+  <img src="../../../assets/fpv-feasibility/fpv-hero.png" alt="Floating photovoltaic array concept at Bewl Water" class="module-hero-bg">
+  <div class="module-hero-overlay">
+    <div class="fade-in-up">
+      <div class="card-tag">MSc Module · Renewable Energy · System Design</div>
+      <h1>Floating Solar Feasibility at Bewl Water</h1>
+    </div>
+    <div class="module-hero-right fade-in-up delayT">
+      <p>A concept-level engineering assessment of a 50 kWp floating photovoltaic system for a freshwater reservoir in Kent, integrating structural, electrical, environmental, and economic design.</p>
+    </div>
+    <div class="module-scroll-indicator">↓</div>
+  </div>
+</section>
+
+<section class="module-section reveal">
+  <div class="module-text">
+    <h2>1. The Design Challenge</h2>
+    <p>Ground-mounted solar competes for land. Floating photovoltaics offer another option: using suitable reservoir surfaces while maintaining a small fraction of the waterbody’s area for energy generation.</p>
+    <p>This study developed a concept-level design for a 50 kWp array at Bewl Water, southeast England’s largest inland reservoir. The work considered not only annual generation but also the mechanical, electrical, environmental, and economic requirements needed for a plausible freshwater installation.</p>
+    <ul>
+      <li>Configure the PV array and modular floating platform</li>
+      <li>Check buoyancy, static stability, wind and wave loading</li>
+      <li>Size the mooring arrangement and gravity anchors</li>
+      <li>Develop the electrical layout and grid connection concept</li>
+      <li>Estimate energy yield, payback, and avoided emissions</li>
+    </ul>
+  </div>
+  <div class="module-media">
+    <div class="carousel" data-images='["../../../assets/fpv-feasibility/fpv-hero.png","../../../assets/fpv-feasibility/fpv2.png"]'></div>
+  </div>
+</section>
+
+<section class="module-section reveal">
+  <div class="module-text order-last">
+    <h2>2. Array & Platform Concept</h2>
+    <div class="responsive-math-container">
+      <p>The proposed array uses 100 monocrystalline PERC modules rated at 500 Wp each, arranged as a 10 by 10 layout to provide a total installed capacity of 50 kWp. Modules are mounted at a 15° tilt: a lower angle than the typical ground-mounted optimum, chosen to reduce wind and wave loading on the floating structure.</p>
+      <p>The layout includes 1 m access walkways and 0.5 m perimeter clearance. The estimated total footprint is approximately 467 m², equivalent to about 0.015% of Bewl Water’s 3.1 km² surface area.</p>
+      <div class="math-block">$$P_{\mathrm{installed}} = N_{\mathrm{modules}}P_{\mathrm{module}} = 100 \times 500\ \mathrm{Wp} = 50\ \mathrm{kWp}$$</div>
+      <p>The support structure is a modular HDPE pontoon lattice with cross-members supporting the PV modules. Each pontoon is approximately 2.1 m × 1.0 m × 0.4 m, with the walkway layout intended to provide access for inspection and maintenance.</p>
+    </div>
+  </div>
+</section>
+
+<section class="module-section reveal">
+  <div class="module-text">
+    <h2>3. Electrical Architecture</h2>
+    <p>The 100 modules are divided into 10 strings, each containing 10 modules in series. At standard test conditions, each string produces approximately 384 V DC at 13.04 A. The strings feed DC combiner boxes, then an onshore string inverter, isolator, transformer, and local grid connection.</p>
+    <p>Locating the inverter onshore reduces the amount of power-conversion equipment exposed to the reservoir environment. The design also considers waterproof junction boxes, dual-insulated cabling, earthing and bonding, lightning protection, fire protection, and SCADA monitoring of system performance and environmental conditions.</p>
+    <div class="math-block">$$V_{\mathrm{string}} \approx 10V_{\mathrm{module}} = 384\ \mathrm{V\ DC}$$</div>
+  </div>
+  <div class="module-media">
+    <img src="../../../assets/fpv-feasibility/fpv-electrical.png" alt="Electrical single-line schematic for the floating PV array" class="module-img">
+  </div>
+</section>
+
+<section class="module-section reveal">
+  <div class="module-media">
+    <img src="../../../assets/fpv-feasibility/fpv-buoyancy.png" alt="Pontoon buoyancy calculation and design" class="module-img">
+  </div>
+  <div class="module-text order-last">
+    <h2>4. Buoyancy & Static Stability</h2>
+    <div class="responsive-math-container">
+      <p>Buoyancy was assessed using Archimedes’ principle. For a pontoon with a 2.1 m × 1.0 m plan area and 0.25 m operating draft, the submerged volume is 0.525 m³.</p>
+      <div class="math-block">$$F_b = \rho gV_{\mathrm{sub}} = 1000 \times 9.81 \times 0.525 \approx 5.15\ \mathrm{kN}$$</div>
+      <p>The available buoyancy was compared with the module, mounting, and maintenance loads to check that the platform retained adequate freeboard under the assumed operating condition.</p>
+      <p>Static stability was assessed using metacentric height:</p>
+      <div class="math-block">$$GM = KB + BM - KG, \qquad BM = \frac{I}{V}$$</div>
+      <p>The estimated metacentric height was approximately 1.075 m. A positive value indicates an initial restoring tendency for small heel angles under the assumptions used in the concept-level calculation.</p>
+    </div>
+  </div>
+</section>
+
+<section class="module-section reveal">
+  <div class="module-text">
+    <h2>5. Wind, Waves & Mooring Loads</h2>
+    <div class="responsive-math-container">
+      <p>Wind and wave loads were estimated to develop an initial mooring design basis. A conservative wind speed of 25 m/s was applied to the projected area of one 10-module row. Wave loading was estimated with the Morison equation using a conservative 0.5 m wave height, 1.8 s period, and approximately 10 m water depth.</p>
+      <div class="math-block">$$F_D = \frac{1}{2}\rho C_D A u|u|, \qquad F_I = \rho C_M V\frac{\partial u}{\partial t}$$</div>
+      <p>The calculation estimated a wind force of 6.65 kN per row. In the wave-force estimate, inertia dominated the drag component; the calculated peak wave force was approximately 554 N per metre of pontoon section, or 11.65 kN across the full 21 m raft width under the stated extreme case.</p>
+      <p>These values are preliminary design estimates: the report recommends validating the assumed hydrodynamic coefficients and load response through simulation or physical testing.</p>
+    </div>
+  </div>
+  <div class="module-media">
+    <img src="../../../assets/fpv-feasibility/fpv-loads.png" alt="Wind and wave loads on the floating photovoltaic array" class="module-img">
+  </div>
+</section>
+
+<section class="module-section reveal">
+  <div class="module-media">
+    <img src="../../../assets/fpv-feasibility/fpv-mooring.png" alt="Catenary mooring and concrete gravity anchor concept" class="module-img">
+  </div>
+  <div class="module-text order-last">
+    <h2>6. Mooring & Anchor Concept</h2>
+    <p>The proposed system uses symmetric catenary mooring lines with a line angle below 25°. A factored design tension of 33.2 kN was estimated for the raft, corresponding to approximately 36.6 kN along the inclined line.</p>
+    <p>Eight HMPE mooring lines were proposed to distribute the load symmetrically and provide redundancy. Under the report’s load-sharing assumption, each line carries approximately 4.58 kN, below the assumed 16.65 kN working load per line.</p>
+    <div class="math-block">$$T_d = \gamma_{\mathrm{mean}}T_{c,\mathrm{mean}} + \gamma_{\mathrm{dyn}}T_{c,\mathrm{dyn}}$$</div>
+    <p>Submerged concrete gravity anchors were selected as a simple concept for the reservoir setting. The estimated anchor volume was approximately 0.44 m³, or around one tonne of concrete per anchor. The final arrangement would require detailed geotechnical, hydrodynamic, and site-specific verification.</p>
+  </div>
+</section>
+
+<section class="module-section reveal">
+  <div class="module-text">
+    <h2>7. Energy Yield & Economics</h2>
+    <div class="responsive-math-container">
+      <p>Annual output was estimated using an in-plane irradiance of 950 kWh/m² and a system performance ratio of 0.85. The performance ratio accounts in aggregate for expected system losses such as temperature, optical, inverter, electrical, mismatch, and degradation effects.</p>
+      <div class="math-block">$$E_{\mathrm{out}} = P_0\frac{H_i}{G_{\mathrm{ref}}}PR$$</div>
+      <div class="math-block">$$E_{\mathrm{out}} = 50\ \mathrm{kWp}\times\frac{950}{1000}\times0.85 \approx 40.4\ \mathrm{MWh/year}$$</div>
+      <p>The concept-level capital estimate was £86,200. At the assumed electricity value of £0.2573/kWh, gross annual value was estimated at £10,388. After annual operation and maintenance costs of 1% of capital cost, the estimated net annual value was approximately £9,527, giving a simple payback of about nine years.</p>
+    </div>
+    <div class="metrics-grid">
+      <div class="metric-card"><span>Installed capacity</span><strong>50 kWp</strong></div>
+      <div class="metric-card"><span>Annual generation</span><strong>40.4 MWh</strong></div>
+      <div class="metric-card"><span>Indicative capital cost</span><strong>£86,200</strong></div>
+      <div class="metric-card"><span>Simple payback</span><strong>~9 years</strong></div>
+    </div>
+  </div>
+  <div class="module-media">
+    <img src="../../../assets/fpv-feasibility/fpv-economics.png" alt="Floating solar generation, cost and payback figures" class="module-img">
+  </div>
+</section>
+
+<section class="module-section reveal">
+  <div class="module-media">
+    <img src="../../../assets/fpv-feasibility/fpv-environment.png" alt="Freshwater environmental considerations for floating solar" class="module-img">
+  </div>
+  <div class="module-text order-last">
+    <h2>8. Carbon & Environmental Considerations</h2>
+    <p>Using the report’s assumed grid carbon intensity of 125 gCO₂/kWh, the annual generation corresponds to approximately 5.05 tonnes of avoided CO₂ per year, or around 126 tonnes over a 25-year operating life before considering lifecycle emissions and degradation.</p>
+    <div class="math-block">$$\Delta CO_2 = E_{\mathrm{annual}}I_{\mathrm{grid}} = 40{,}375\times0.125 \approx 5{,}047\ \mathrm{kgCO_2/year}$$</div>
+    <p>The array occupies only around 0.015% of the reservoir surface in this concept, limiting the scale of shading compared with larger coverage scenarios. Nonetheless, floating PV can alter light penetration, water temperature, mixing, oxygen distribution, and ecological use of the waterbody.</p>
+    <p>Material durability and environmental monitoring also matter: the report identifies potential biofouling, UV-related degradation, and chemical leaching as issues for further assessment, alongside the benefits and risks of reduced algal growth and habitat changes.</p>
+  </div>
+</section>
+
+<section class="module-section reveal">
+  <div class="module-text">
+    <h2>9. Design Takeaways</h2>
+    <p>This concept study brought together array configuration, electrical design, pontoon buoyancy and stability, environmental considerations, mooring loads, energy yield, and project economics in one system-level feasibility assessment.</p>
+    <p>The central engineering trade-off was clear: a floating array must capture useful solar energy while keeping wind and wave loads manageable, maintaining safe electrical isolation near water, providing access for maintenance, and limiting ecological disturbance.</p>
+    <p>The next stage should refine the concept with site-specific wind and wave data, detailed mooring and anchor analysis, electrical protection studies, and environmental monitoring. Physical or numerical validation of hydrodynamic loads and long-term material performance would strengthen the design basis before deployment.</p>
+    <a href="../../../assets/fpv-feasibility/FPV_ASSIGNMENT_492991.pdf" download class="btn primary module-download">↓ Download Full Report (PDF)</a>
+  </div>
+  <div class="module-media">
+    <img src="../../../assets/fpv-feasibility/fpv-subassembly.png" alt="Floating PV pontoon and module subassembly drawing" class="module-img">
+  </div>
+</section>
+
+<section class="module-cta">
+  <div class="module-cta-inner">
+    <h3>Explore More</h3>
+    <h2>Other Module Projects</h2>
+    <a href="../modules.html" class="btn secondary module-back">← Back to Modules</a>
+  </div>
+</section>
+
+</div>
+
+<footer><p>© 2026 Isaac Summers</p></footer>
+<script src="fpv-feasibility.js"></script>
+</body>
+</html>
