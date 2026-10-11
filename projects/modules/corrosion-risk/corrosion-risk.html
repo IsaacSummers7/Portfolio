@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Corrosion Inhibition for Desalination Pipelines | Isaac Summers</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}]});">
+</script>
+
+<link rel="stylesheet" href="../../../styles.css">
+<link rel="stylesheet" href="corrosion-risk.css">
+</head>
+
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../../../index.html" class="logo">← Isaac Summers</a>
+
+    <div class="nav-links">
+      <a href="../../../projects.html">Projects</a>
+    </div>
+  </div>
+</nav>
+
+<div class="module-wrapper">
+
+  <section class="module-hero">
+    <img
+      src="../../../assets/corrosion-risk/corrosion-hero.png"
+      alt="Corrosion testing and microscopy of mild steel samples"
+      class="module-hero-bg"
+    >
+
+    <div class="module-hero-overlay">
+      <div class="fade-in-up">
+        <div class="card-tag">MSc Module · Risk & Failure · Corrosion</div>
+        <h1>Corrosion Inhibition for Desalination Pipelines</h1>
+      </div>
+
+      <div class="module-hero-right fade-in-up delayT">
+        <p>
+          Evaluation of benzotriazole–tetrapotassium pyrophosphate inhibition for mild steel
+          in simulated seawater, combining electrochemical testing, tensile analysis,
+          microscopy, uncertainty assessment, and real-world pipeline risk evaluation.
+        </p>
+      </div>
+
+      <div class="module-scroll-indicator">↓</div>
+    </div>
+  </section>
+
+  <section class="module-section reveal">
+    <div class="module-text">
+      <h2>1. Context & Aim</h2>
+
+      <p>
+        Desalination infrastructure relies heavily on carbon-steel piping to transport saline
+        seawater and concentrated brine. Chloride ions disrupt protective oxide layers and
+        accelerate wall thinning, pitting, leakage, unplanned maintenance, and potentially
+        costly environmental or safety incidents.
+      </p>
+
+      <p>
+        This study evaluated benzotriazole–tetrapotassium pyrophosphate
+        (BTA-TKPP) as a corrosion inhibitor for mild steel immersed in 3.5 wt.% NaCl,
+        representing a controlled seawater environment.
+      </p>
+
+      <ul>
+        <li>Compare uninhibited, low-dose, and high-dose inhibitor conditions</li>
+        <li>Measure corrosion behaviour using OCP, LPR, and EIS</li>
+        <li>Assess mechanical response through post-exposure tensile testing</li>
+        <li>Examine corrosion products and protective-film behaviour using microscopy and SEM–EDX</li>
+        <li>Evaluate whether the static laboratory method captures the most important real-world pipeline risks</li>
+      </ul>
+    </div>
+
+    <div class="module-media">
+      <div
+        class="carousel"
+        data-images='[
+          "../../../assets/corrosion-risk/corrosion-setup.png",
+          "../../../assets/corrosion-risk/corrosion-microscopy.png"
+        ]'>
+      </div>
+    </div>
+  </section>
+
+  <section class="module-section reveal">
+    <div class="module-media">
+      <img
+        src="../../../assets/corrosion-risk/corrosion-setup.png"
+        alt="Electrochemical cell and tensile test setup"
+        class="module-img"
+      >
+    </div>
+
+    <div class="module-text order-last">
+      <h2>2. Experimental Method</h2>
+
+      <div class="responsive-math-container">
+        <p>
+          Mild-steel dog-bone specimens were exposed to 3.5 wt.% sodium chloride solution
+          at 15°C under three inhibitor conditions: 0 ppm, 50 ppm, and 500 ppm BTA-TKPP.
+          Specimen gauge sections were ground, degreased, rinsed, and dried before immersion
+          to improve surface-finish consistency.
+        </p>
+
+        <p>
+          A three-electrode electrochemical cell was used: the mild-steel specimen acted as
+          the working electrode, with an Ag/AgCl reference electrode and platinum counter
+          electrode. Open-circuit potential, linear polarisation resistance, and electrochemical
+          impedance spectroscopy were measured daily over days 1–4 and day 7.
+        </p>
+
+        <div class="math-block">
+          $$i_{\mathrm{corr}} = \frac{B}{R_p}$$
+        </div>
+
+        <p>
+          Linear polarisation resistance was interpreted using the Stern–Geary relationship,
+          where \(i_{\mathrm{corr}}\) is corrosion-current density, \(B\) is the Stern–Geary
+          constant, and \(R_p\) is polarisation resistance. A higher \(R_p\) generally
+          indicates a stronger barrier to charge transfer and lower corrosion activity.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="module-section reveal">
+    <div class="module-text">
+      <h2>3. Electrochemical Behaviour</h2>
+
+      <div class="responsive-math-container">
+        <p>
+          Open-circuit potential trends revealed visibly different film behaviour across the
+          three inhibitor conditions. The uninhibited specimen became more active and noisy,
+          consistent with oxide dissolution followed by porous corrosion-product accumulation.
+        </p>
+
+        <p>
+          The 50 ppm inhibitor condition showed an initially increasing potential and relatively
+          low noise, indicating early protective-film formation. However, the trend later declined,
+          suggesting that the low-dose film did not remain stable over the full exposure period.
+        </p>
+
+        <p>
+          The 500 ppm condition stabilised at more noble potential values by day 7, indicating a
+          more persistent surface film. This did not automatically translate into the lowest measured
+          corrosion rate, showing that film stability and inhibition efficiency are not necessarily identical.
+        </p>
+
+        <div class="math-block">
+          $$\eta_{\mathrm{inh}} =
+          \left(
+          \frac{CR_0 - CR_{\mathrm{inh}}}{CR_0}
+          \right) \times 100\%$$
+        </div>
+
+        <p>
+          Here, \(CR_0\) is the corrosion rate of the uninhibited condition and
+          \(CR_{\mathrm{inh}}\) is the rate under inhibitor exposure.
+        </p>
+      </div>
+    </div>
+
+    <div class="module-media">
+      <img
+        src="../../../assets/corrosion-risk/corrosion-ocp.png"
+        alt="Open circuit potential trends over seven days"
+        class="module-img"
+      >
+    </div>
+  </section>
+
+  <section class="module-section reveal">
+    <div class="module-media">
+      <div
+        class="carousel"
+        data-images='[
+          "../../../assets/corrosion-risk/corrosion-rate.png",
+          "../../../assets/corrosion-risk/corrosion-eis.png"
+        ]'>
+      </div>
+    </div>
+
+    <div class="module-text order-last">
+      <h2>4. Inhibitor Performance</h2>
+
+      <p>
+        The electrochemical results showed a clear dose-dependent response, but not a simple
+        “more inhibitor equals better protection” relationship. The uninhibited mild steel reached
+        an average day-7 corrosion rate of approximately 0.109 mm/year.
+      </p>
+
+      <div class="result-table-wrap">
+        <table class="result-table">
+          <thead>
+            <tr>
+              <th>BTA-TKPP dose</th>
+              <th>Day-7 corrosion rate</th>
+              <th>Average inhibition efficiency</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>0 ppm</td>
+              <td>0.117 mm/year</td>
+              <td>—</td>
+            </tr>
+
+            <tr>
+              <td>50 ppm</td>
+              <td>0.061 mm/year</td>
+              <td>61%</td>
+            </tr>
+
+            <tr>
+              <td>500 ppm</td>
+              <td>0.070 mm/year</td>
+              <td>39%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        The 50 ppm condition delivered the strongest overall inhibition, whereas the higher
+        500 ppm dose formed a more stable final film but produced lower average protection.
+        This behaviour is consistent with excessive inhibitor concentration producing molecular
+        clustering and imperfect films that remain vulnerable to chloride attack.
+      </p>
+
+      <p>
+        EIS fitting to a Randles circuit showed charge-transfer resistance increasing until
+        approximately day 3 before declining, supporting the interpretation of film compaction
+        followed by partial breakdown and increased porosity.
+      </p>
+    </div>
+  </section>
+
+  <section class="module-section reveal">
+    <div class="module-text">
+      <h2>5. Mechanical Response & Microscopy</h2>
+
+      <p>
+        Tensile testing after seven days of exposure showed very similar ultimate tensile
+        strengths across all specimens — between approximately 456 MPa and 462 MPa.
+        This indicates that the short immersion period did not produce sufficient bulk
+        cross-sectional damage to significantly affect tensile strength.
+      </p>
+
+      <p>
+        A reduction in elongation was observed for the 50 ppm condition, despite its stronger
+        electrochemical inhibition performance. One possible explanation is that a protective
+        surface film can locally constrain near-surface plastic deformation and contribute to
+        more brittle surface behaviour before bulk tensile strength is affected.
+      </p>
+
+      <p>
+        Macroscopy showed the greatest visible rust on the uninhibited specimen and reduced
+        surface corrosion with inhibitor addition. SEM–EDX observations identified detached
+        iron-oxide features, with more frequent film fragments at higher inhibitor dosage —
+        consistent with thicker or more continuous inhibitor/oxide films that can still detach locally.
+      </p>
+    </div>
+
+    <div class="module-media">
+      <div
+        class="carousel"
+        data-images='[
+          "../../../assets/corrosion-risk/corrosion-tensile.png",
+          "../../../assets/corrosion-risk/corrosion-microscopy.png"
+        ]'>
+      </div>
+    </div>
+  </section>
+
+  <section class="module-section reveal">
+    <div class="module-media">
+      <img
+        src="../../../assets/corrosion-risk/corrosion-risk.png"
+        alt="Risk assessment for corrosion hazards in desalination pipelines"
+        class="module-img"
+      >
+    </div>
+
+    <div class="module-text order-last">
+      <h2>6. Risk Assessment: The Critical Gap</h2>
+
+      <p>
+        The laboratory work captured the fundamental chloride-driven electrochemical corrosion
+        mechanism, but the risk assessment identified flow-accelerated erosion-corrosion as
+        the most significant operational threat in a real desalination pipeline.
+      </p>
+
+      <p>
+        In service, high wall shear stress and turbulent brine flow can strip protective films,
+        accelerate mass transport, and increase steel loss far beyond static immersion behaviour.
+        This can cause rapid wall thinning, leaks, rupture, unplanned shutdowns, environmental
+        release, and costly repair.
+      </p>
+
+      <div class="risk-callout">
+        <span>Key finding</span>
+        <strong>
+          Static immersion testing can quantify baseline chloride attack, but it can
+          underestimate real pipeline degradation where hydrodynamic erosion damages
+          inhibitor films.
+        </strong>
+      </div>
+
+      <p>
+        This distinction was central to the engineering interpretation: a laboratory inhibitor
+        result should not be transferred directly into operational pipeline dosing strategy
+        without validation under representative flow conditions.
+      </p>
+    </div>
+  </section>
+
+  <section class="module-section reveal">
+    <div class="module-text">
+      <h2>7. Recommendations</h2>
+
+      <p>
+        The main recommendation was to extend the experiment from static immersion to a
+        controlled recirculating flow-loop test. This would allow flow velocity, wall shear stress,
+        pressure, and inhibitor performance to be evaluated under more realistic desalination
+        pipeline conditions.
+      </p>
+
+      <p>
+        Longer 30–90 day exposure campaigns with sacrificial samples would also make it
+        possible to correlate electrochemical signals with progressive surface degradation,
+        corrosion morphology, and any meaningful change in mechanical properties over time.
+      </p>
+
+      <p>
+        Finally, tensile testing should use an extensometer rather than crosshead displacement
+        for reliable Young's-modulus measurement, and each exposure condition should include
+        repeat specimens to quantify scatter and statistical significance.
+      </p>
+    </div>
+
+    <div class="module-media">
+      <img
+        src="../../../assets/corrosion-risk/corrosion-flow-loop.png"
+        alt="Suggested recirculating flow loop for erosion corrosion testing"
+        class="module-img"
+      >
+    </div>
+  </section>
+
+  <section class="module-cta">
+    <div class="module-cta-inner">
+      <h3>Full Technical Report</h3>
+      <h2>Download the Assignment</h2>
+
+      <p class="module-cta-text">
+        The complete report includes electrochemical data, corrosion-rate calculations,
+        tensile analysis, microscopy, EIS fitting, uncertainty discussion, and the desalination
+        pipeline risk assessment.
+      </p>
+
+      <a
+        href="../../../assets/corrosion-risk/ARF_Assignment_492991.pdf"
+        download
+        class="btn primary module-download"
+      >
+        ↓ Download Full Report (PDF)
+      </a>
+
+      <a href="../../modules.html" class="btn secondary module-back">
+        ← Back to Modules
+      </a>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <p>© 2026 Isaac Summers</p>
+</footer>
+
+<script src="corrosion-risk.js"></script>
+</body>
+</html>

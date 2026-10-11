@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Urban Wind: VAWT Research | Isaac Summers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}]});"></script>
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="vawt.css">
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="../../index.html" class="logo">← Isaac Summers</a>
+    <div class="nav-links"><a href="../../projects.html">Projects</a></div>
+  </div>
+</nav>
+
+<div class="vawt-wrapper">
+
+<section class="vawt-hero full-screen">
+  <img src="../../assets/vawt-hero.png" alt="Hero" class="vawt-hero-bg">
+  <div class="fade-gradientTwo"></div>
+  <div class="vawt-hero-overlay">
+    <div class="vawt-hero-left">
+      <h1 class="fade-in-up">Urban Wind: VAWT Research</h1>
+    </div>
+    <div class="vawt-hero-right fade-in-up delayT">
+      <p class="fade-in-up">An in-depth look into the process of designing, simulating, and validating a small-scale VAWT for semi-urban streetlighting.</p>
+    </div>
+    <div class="vawt-scroll-indicator">↓</div>
+  </div>
+</section>
+
+<!-- 1. Introduction -->
+<section class="vawt-section reveal">
+  <div class="floating-shape-vawt shape1"></div>
+  <div class="floating-shape-vawt shape2"></div>
+  <div class="vawt-text">
+    <h2>1. Introduction: Meeting the Urban Energy Challenge</h2>
+    <p>Cities today spend up to 40% of their electricity budget on street lighting. To reduce both cost and carbon emissions, this project integrates a small vertical-axis wind turbine into each lamp post. The goal: at least 200 kWh/year per turbine within a compact spatial envelope, ensuring manufacturability, structural integrity, and rapid ROI.</p>
+    <p>As global energy demand rises, the shift from fossil fuels to renewable sources is critical. Urban areas, with their high energy consumption and turbulent wind conditions, present a unique challenge. Vertical-axis wind turbines (VAWTs) offer a promising solution due to their ability to capture wind from any direction, making them well-suited for semi-urban environments where traditional grid-powered street lighting is both costly and carbon-intensive.</p>
+  </div>
+  <div class="vawt-carousel">
+    <div class="carousel" data-images='["../../assets/vawt/CGPTVAWT.png","../../assets/vawt/VAWTAD.png"]'></div>
+  </div>
+</section>
+
+<!-- 2. MATLAB -->
+<section class="vawt-section reveal">
+  <div class="floating-shape-vawt shape1"></div>
+  <div class="floating-shape-vawt shape2"></div>
+  <div class="vawt-carousel">
+    <div class="carousel" data-images='["../../assets/vawt/MLFlowchart.png","../../assets/vawt/Approximations.png","../../assets/vawt/Weibull.png","../../assets/vawt/ComparisonWSSA.png"]'></div>
+  </div>
+  <div class="vawt-text order-last">
+    <h2>2. Custom Predictive Modeling in MATLAB</h2>
+    <div class="responsive-math-container">
+      <p>A MATLAB framework was developed to explore numerous geometries before CFD simulations:</p>
+      <p><strong>Effective Wind Moment:</strong> The Weibull distribution was chosen for its proven effectiveness in wind energy studies. It accurately captures the variability of wind speeds across different locations, reflecting the probabilistic nature of wind patterns. This makes it ideal for estimating annual energy production by accounting for the frequency and distribution of wind speeds at the turbine's installation site, enhancing the reliability of the predictive models.</p>
+      <p><strong>Annual Energy Estimate:</strong></p>
+      <div class="math-block">$$E_{\mathrm{year}} = \frac{1}{2} \rho A C_p \int_0^\infty v^3 f(v) \, dv \times 8760\ \mathrm{h}$$</div>
+      <p><strong>Cp–TSR Approximation:</strong></p>
+      <div class="math-block">$$C_p(\mathrm{TSR}) = \begin{cases} C_{p,\max} \exp\left(-\frac{3.2}{\mathrm{TSR}_{\mathrm{opt}}} \left|\frac{\mathrm{TSR}_{\mathrm{opt}} - \mathrm{TSR}}{1.2 \sqrt{\mathrm{WidthFactor}}}\right|^c\right), & \mathrm{TSR} \leq \mathrm{TSR}_{\mathrm{opt}} \\ C_{p,\max} \exp\left(-a \left(\frac{\mathrm{TSR} - \mathrm{TSR}_{\mathrm{opt}}}{\mathrm{WidthFactor} \cdot \mathrm{TSR}_{\mathrm{opt}}}\right)^b\right), & \mathrm{TSR} > \mathrm{TSR}_{\mathrm{opt}} \end{cases}$$</div>
+      <p>Constants \(a, b, c\) are tuned from literature, and \(\mathrm{WidthFactor}\) relates to turbine solidity, enabling rapid sweeps of chord, radius, and solidity.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 3. CFD -->
+<section class="vawt-section reveal">
+  <div class="floating-shape-vawt shape1"></div>
+  <div class="floating-shape-vawt shape2"></div>
+  <div class="vawt-text">
+    <h2>3. High-Fidelity CFD Meshing &amp; Solver Setup</h2>
+    <div class="responsive-math-container">
+      <p>Top candidates were analysed using ANSYS Fluent 2D transient simulations to capture the dynamic behaviour of the turbine:</p>
+      <p><strong>Domain &amp; Mesh:</strong> The computational domain was a 20R circular region to minimise boundary effects, featuring a hybrid mesh with approximately 500,000 cells. This ensured high resolution near the blades, where flow gradients are steepest. An inflation layer was applied with a first-layer height calculated to maintain \(y^+ < 1\), critical for resolving boundary layer effects accurately.</p>
+      <div class="math-block">$$y = \frac{y^+ \mu}{\rho u_\tau},\quad y^+ < 1$$</div>
+      <p><strong>Mesh Independence:</strong> Tests with 230k, 500k, and 800k cells confirmed that beyond 500k cells, Cp variations were less than 5%, balancing accuracy and computational cost.</p>
+      <p><strong>Solver Settings:</strong> The k-ω SST turbulence model was employed for its superior performance in modelling flow separation and vortex shedding — key phenomena in VAWT aerodynamics. A second-order upwind scheme was used for momentum discretisation, and residuals were set to 10⁻⁶ to ensure convergence within 40 iterations per time step.</p>
+      <p><strong>Time Stepping:</strong></p>
+      <div class="math-block">$$\Delta t = \frac{2\pi (1^\circ / 360)}{\omega}$$</div>
+      <p><strong>Data Extraction:</strong> Simulations ran for 10 revolutions, discarding the first 5 to eliminate transients, then averaging torque to generate Cp–TSR curves.</p>
+    </div>
+  </div>
+  <div class="vawt-carousel">
+    <div class="carousel" data-images='["../../assets/vawt/Domain.png","../../assets/vawt/Meshing.png","../../assets/vawt/Independence.png"]'></div>
+  </div>
+</section>
+
+<!-- 4. Validation -->
+<section class="vawt-section reveal">
+  <div class="floating-shape-vawt shape1"></div>
+  <div class="floating-shape-vawt shape2"></div>
+  <div class="vawt-carousel">
+    <div class="carousel" data-images='["../../assets/vawt/Validation.png","../../assets/vawt/Settled.png"]'></div>
+  </div>
+  <div class="vawt-text order-last">
+    <h2>4. Validation Against Multiple References</h2>
+    <p>The CFD model was validated by comparing simulated Cp–TSR curves with experimental data from Castelli et al. For a turbine with a solidity of 0.2, the simulations achieved a peak \(C_p = 0.4\) at TSR ≈ 2.6, aligning within 10% of the reference values, confirming the model's predictive capability. A slight shift was observed in the Cp–TSR curve, however, which is accounted for and is commonly seen in other CFD experiments due to the inherent uncertainty in 2D simulations.</p>
+    <p>Beyond numerical validation, the physical accuracy was assessed through wake profiles and vortex shedding patterns. The simulations captured the formation of vortex structures behind the blades, consistent with the unsteady aerodynamics expected in VAWTs. These wake characteristics, observed after convergence, matched theoretical expectations, reinforcing the reliability of the computational approach.</p>
+  </div>
+</section>
+
+<!-- 5. Insights -->
+<section class="vawt-section reveal">
+  <div class="floating-shape-vawt shape1"></div>
+  <div class="floating-shape-vawt shape2"></div>
+  <div class="vawt-text">
+    <h2>5. Key Insights &amp; Techno-Economic Outcomes</h2>
+    <p>MATLAB predictions and CFD results achieved energy forecasts within 10% of simulated outcomes.</p>
+    <p>Geometry sweeps completed in minutes; each CFD simulation took ~10 CPU hours.</p>
+    <p>Prototype costs are £650/unit, reducing to £400/unit in bulk, with a ~10-year payback at £0.34/kWh.</p>
+    <p>CO₂ savings estimated at 62.5 kg per turbine annually, or 62.5 t for 1,000 units.</p>
+    <p><strong>CFD Outcomes:</strong> Simulations showed that higher solidity (σ = 0.4) turbines excelled at lower TSRs (1.5–2.5), ideal for urban wind speeds of 3–4 m/s, enhancing self-starting ability. Conversely, lower solidity (σ = 0.2) favoured higher TSRs with increased peak Cp. The NACA0018 airfoil outperformed NACA0015, yielding a peak \(C_p = 0.4\) versus 0.38, due to its higher lift-to-drag ratio at operating angles of attack.</p>
+  </div>
+  <div class="vawt-carousel">
+    <div class="carousel" data-images='["../../assets/vawt/BladeProfiles.png","../../assets/vawt/Solidity.png"]'></div>
+  </div>
+</section>
+
+<!-- 6. FEA -->
+<section class="vawt-section reveal">
+  <div class="floating-shape-vawt shape1"></div>
+  <div class="floating-shape-vawt shape2"></div>
+  <div class="vawt-carousel">
+    <div class="carousel" data-images='["../../assets/vawt/FEA.png"]'></div>
+  </div>
+  <div class="vawt-text order-last">
+    <h2>6. Structural Verification: FEA of the Streetlight</h2>
+    <p>To confirm the turbine could be safely integrated onto an existing streetlight, a structural finite element analysis was performed on the lamp post under the aerodynamic loading predicted by the CFD study.</p>
+    <p>A representative 180 N lateral force was applied at the turbine mounting height to simulate peak wind loading. The analysis quantified stress concentrations and total deformation along the pole, confirming that stresses remained within acceptable limits for the proposed mounting configuration.</p>
+    <p>This structural check complemented the aerodynamic work by ensuring the chosen turbine size and mounting position were mechanically viable, not just aerodynamically efficient.</p>
+  </div>
+</section>
+
+<!-- 7. Conclusion -->
+<section class="vawt-section reveal">
+  <div class="floating-shape-vawt shape1"></div>
+  <div class="floating-shape-vawt shape2"></div>
+  <div class="vawt-text">
+    <h2>7. Conclusion &amp; Next Steps</h2>
+    <p>The integrated approach - MATLAB modelling, CFD validation, structural FEA, and cost analysis — delivers optimised VAWTs for semi-urban settings.</p>
+    <p>Future work includes 3D CFD, field testing with helical and straight-blade designs, and lifecycle assessments.</p>
+  </div>
+  <div class="vawt-carousel">
+    <div class="carousel" data-images='["../../assets/vawt/SBT.png","../../assets/vawt/HBT.png"]'></div>
+  </div>
+</section>
+
+<!-- Download CTA -->
+<section class="vawt-cta">
+  <div class="vawt-cta-inner">
+    <h3>Request the Full Technical Document</h3>
+    <h2>Dive Deeper into the VAWT Research</h2>
+    <a href="../assets/vawt/VAWT_Full_Report.pdf" download class="btn primary">Download Full Report</a>
+  </div>
+</section>
+
+</div>
+
+<footer><p>© 2026 Isaac Summers</p></footer>
+
+<script src="vawt.js"></script>
+</body>
+</html>

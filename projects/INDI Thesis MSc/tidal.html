@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Numerical Investigation of a Novel Tidal Turbine | Isaac Summers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}]});"></script>
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="tidal.css">
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="../../index.html" class="logo">← Isaac Summers</a>
+    <div class="nav-links"><a href="../../projects.html">Projects</a></div>
+  </div>
+</nav>
+
+<div class="tidal-wrapper">
+
+<section class="tidal-hero">
+  <img src="../../assets/tidal/hero.png" alt="Hero" class="tidal-hero-bg">
+  <div class="tidal-hero-overlay">
+    <div class="fade-in-up">
+      <div class="card-tag">MSc Thesis · CFD · Industry-linked</div>
+      <h1>Numerical Investigation of a Novel Tidal Turbine</h1>
+    </div>
+    <div class="tidal-hero-right fade-in-up delayT">
+      <p>Transient rotating CFD of an enclosed tidal turbine generating torque through internal flow redirection and tangential nozzle reaction, developed in collaboration with Propel & Power Ltd.</p>
+    </div>
+    <div class="tidal-scroll-indicator">↓</div>
+  </div>
+</section>
+
+<section class="tidal-section reveal">
+  <div class="tidal-text">
+    <h2>1. Rethinking Tidal Energy Conversion</h2>
+    <p>Tidal-stream energy offers predictable, high-density renewable power, but most existing devices rely on conventional blade lift or drag mechanisms. This thesis investigates a novel enclosed turbine that generates torque through internal flow redirection and tangential nozzle discharge — a reaction-based approach rather than direct blade loading.</p>
+    <p>Building on earlier locked-rotor CFD and tow-tank testing, the study develops a transient rotating CFD methodology to capture the turbine's real operating behaviour, including its performance response, free-spinning equilibrium, and the flow mechanisms governing its efficiency.</p>
+  </div>
+  <div class="tidal-media">
+    <div class="carousel" data-images='["../../assets/tidal/concept1.png","../../assets/tidal/concept2.png"]'></div>
+  </div>
+</section>
+
+<section class="tidal-section reveal">
+  <div class="tidal-media">
+    <img src="../../assets/tidal/domain.png" alt="Computational domain" class="tidal-img">
+  </div>
+  <div class="tidal-text order-last">
+    <h2>2. Transient Rotating CFD Methodology</h2>
+    <div class="responsive-math-container">
+      <p>A 3D transient CFD model of the full turbine was developed in ANSYS Fluent, using three complementary rotational treatments:</p>
+      <p><strong>Frame Motion (MRF):</strong> Used for the performance sweep, solving the flow in a rotating reference frame with Coriolis and centripetal terms added to the momentum equation:</p>
+      <div class="math-block">$$\frac{\partial(\rho \vec{v})}{\partial t} + \nabla\cdot(\rho\vec{v}\vec{v}) + 2\rho\vec{\omega}\times\vec{v} + \rho\vec{\omega}\times(\vec{\omega}\times\vec{r}) = -\nabla p + \nabla\cdot\bar{\bar{\tau}}$$</div>
+      <p><strong>Mesh Motion (sliding mesh):</strong> Physically rotates the mesh to resolve the changing nozzle–chamber geometry, used for detailed flow-field analysis.</p>
+      <p><strong>1DOF Dynamic Mesh:</strong> Couples the fluid solver to a rigid-body rotational equation, letting the rotor accelerate freely under hydrodynamic torque:</p>
+      <div class="math-block">$$I_{zz}\frac{d\omega}{dt} = T_{\mathrm{hydro}} - T_{\mathrm{load}} - T_{\mathrm{friction}}$$</div>
+      <p>Turbulence was modelled with the k-ω SST closure, blending near-wall k-ω behaviour with freestream k-ε accuracy via the blending function \(F_1\).</p>
+    </div>
+  </div>
+</section>
+
+<section class="tidal-section reveal">
+  <div class="tidal-text">
+    <h2>3. Meshing & Near-Wall Treatment</h2>
+    <div class="responsive-math-container">
+      <p>The complex internal geometry — curved nozzle passages, rotating chambers, and fine features — was meshed with unstructured tetrahedra, locally refined near the turbine and in the near-wake region.</p>
+      <p>Prism inflation layers resolved the boundary layer, with first-cell height sized from the target wall resolution:</p>
+      <div class="math-block">$$y = \frac{y^+ \mu}{\rho u_\tau},\quad u_\tau = \sqrt{\frac{\tau_w}{\rho}}$$</div>
+      <p>A target of \(y^+ \approx 2\) was used, resolving the boundary layer directly rather than relying on wall functions. Mesh independence was assessed across a wide range of cell counts, with discretisation uncertainty quantified using non-monotonic (order-free) Grid Convergence Index treatment.</p>
+    </div>
+  </div>
+  <div class="tidal-media">
+    <img src="../../assets/tidal/mesh.png" alt="Computational mesh" class="tidal-img">
+  </div>
+</section>
+
+<section class="tidal-section reveal">
+  <div class="tidal-media">
+    <img src="../../assets/tidal/validation.png" alt="Validation against tow-tank data" class="tidal-img">
+  </div>
+  <div class="tidal-text order-last">
+    <h2>4. Verification & Validation</h2>
+    <p>The model was verified through mesh, timestep, domain blockage, y+, rotational convergence, and rotor moment-of-inertia studies, with internal consistency checks (angular momentum vs pressure-force torque) confirming the torque monitor captured the intended quantity.</p>
+    <p>Validation against two independent benchmarks — free-spinning rotational speed from tow-tank testing and stationary torque from the turbine's patent — showed reasonable agreement, with differences physically explained by drivetrain losses and the simplified nature of the patent's analytical formulation.</p>
+    <p>Free-spinning simulations predicted an equilibrium speed in close qualitative agreement with the measured tow-tank value, with the discrepancy attributable to bearing friction, gearbox losses, and generator drag absent from the CFD model.</p>
+  </div>
+</section>
+
+<section class="tidal-section reveal">
+  <div class="tidal-text">
+    <h2>5. Performance Characterisation</h2>
+    <div class="responsive-math-container">
+      <p>The turbine's hydrodynamic performance was characterised through its power coefficient–tip-speed ratio relationship:</p>
+      <div class="math-block">$$C_p = \frac{P}{\frac{1}{2}\rho A U_\infty^3},\quad \lambda = \frac{\omega R}{U_\infty}$$</div>
+      <p>Simulations across a range of freestream velocities captured the full Cp–TSR response, identifying the peak operating region and the decline toward the natural no-load speed. Peak efficiency increased monotonically with flow speed, consistent with Reynolds-number-dependent internal passage losses.</p>
+      <p>Free-spinning equilibrium speeds were predicted across the velocity range, providing a full operating envelope for the turbine.</p>
+    </div>
+  </div>
+  <div class="tidal-media">
+    <img src="../../assets/tidal/cp-tsr.png" alt="Performance curves" class="tidal-img">
+  </div>
+</section>
+
+<section class="tidal-section reveal">
+  <div class="tidal-media">
+    <div class="carousel" data-images='["../../assets/tidal/flowfield.png","../../assets/tidal/flowfield2.png","../../assets/tidal/flowfield3.png"]'></div>
+  </div>
+  <div class="tidal-text order-last">
+    <h2>6. Flow-Field Analysis & Loss Mechanisms</h2>
+    <p>Detailed flow-field analysis using the sliding-mesh formulation identified four main performance-limiting mechanisms:</p>
+    <ul>
+      <li>Residual transverse jet momentum and wake mixing</li>
+      <li>Nozzle–stator interaction</li>
+      <li>Internal pressure and passage losses</li>
+      <li>Persistent wake deficit downstream of the turbine</li>
+    </ul>
+    <p>Internal pressure, velocity, and mass-flow data were used to link nozzle discharge behaviour and stator pressure redistribution to overall torque generation, providing a clear picture of where energy is lost and how the geometry could be optimised.</p>
+  </div>
+</section>
+
+<section class="tidal-section reveal">
+  <div class="tidal-text">
+    <h2>7. Conclusion & Future Work</h2>
+    <p>This study delivered a verified transient CFD framework for a novel reaction-based tidal turbine, characterising its performance across a range of operating conditions and identifying the key flow mechanisms limiting efficiency.</p>
+    <p>The work provides a robust baseline for future geometric optimisation and experimental validation, with recommendations including refinement of the nozzle geometry, investigation of alternative stator configurations, and extended experimental campaigns to reduce validation uncertainty.</p>
+  </div>
+  <div class="tidal-media">
+    <img src="../../assets/tidal/wake.png" alt="Wake development downstream" class="tidal-img">
+  </div>
+</section>
+
+<section class="tidal-cta">
+  <div class="tidal-cta-inner">
+    <h3>Full Technical Document</h3>
+    <h2>Interested in the Full Thesis?</h2>
+    <p class="nda-note">The full thesis may be shared under a non-disclosure agreement, subject to agreement from all parties involved.</p>
+    <a href="mailto:your.email@example.com" class="btn primary">Contact for Access</a>
+  </div>
+</section>
+
+</div>
+
+<footer><p>© 2026 Isaac Summers</p></footer>
+<script src="tidal.js"></script>
+</body>
+</html>

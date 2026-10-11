@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fluid Mechanics & Loading | Isaac Summers</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}]});">
+</script>
+
+<link rel="stylesheet" href="../../../styles.css">
+<link rel="stylesheet" href="fluid-mechanics.css">
+</head>
+
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../../../index.html" class="logo">← Isaac Summers</a>
+
+    <div class="nav-links">
+      <a href="../../../projects.html">Projects</a>
+    </div>
+  </div>
+</nav>
+
+<div class="module-wrapper">
+
+  <section class="module-hero">
+    <img
+      src="../../../assets/fluid-mechanics/fluid-hero.png"
+      alt="CFD pressure contour around an airfoil"
+      class="module-hero-bg"
+    >
+
+    <div class="module-hero-overlay">
+      <div class="fade-in-up">
+        <div class="card-tag">MSc Module · Fluid Mechanics · CFD</div>
+        <h1>Fluid Mechanics & Loading</h1>
+      </div>
+
+      <div class="module-hero-right fade-in-up delayT">
+        <p>
+          Aerodynamic assessment of NACA airfoils using analytical theory, XFOIL and CFD,
+          combined with Airy wave theory and Morison-equation loading analysis for an
+          offshore monopile.
+        </p>
+      </div>
+
+      <div class="module-scroll-indicator">↓</div>
+    </div>
+  </section>
+
+  <section class="module-section reveal">
+    <div class="module-text">
+      <h2>1. Scope</h2>
+
+      <p>
+        This module combined two fluid-mechanics investigations. The first assessed the
+        aerodynamic behaviour of a symmetric NACA 0019 airfoil, a cambered NACA 2421
+        airfoil, and a circular bluff-body profile at low Reynolds number.
+      </p>
+
+      <p>
+        The second applied linear Airy wave theory and the Morison equation to determine
+        the time-varying horizontal wave load on a monopile-supported meteorological mast.
+      </p>
+
+      <ul>
+        <li>Compare airfoil lift, drag, and stall behaviour using thin-airfoil theory, XFOIL, and CFD</li>
+        <li>Resolve low-Reynolds-number separation behaviour with transition-aware CFD</li>
+        <li>Evaluate the limitations of idealised analytical versus numerical methods</li>
+        <li>Classify wave conditions and assess Morison-equation validity</li>
+        <li>Derive the maximum horizontal inertia load on an offshore monopile</li>
+      </ul>
+    </div>
+
+    <div class="module-media">
+      <div
+        class="carousel"
+        data-images='[
+          "../../../assets/fluid-mechanics/fluid-pressure.png",
+          "../../../assets/fluid-mechanics/fluid-stall.png"
+        ]'>
+      </div>
+    </div>
+  </section>
+
+  <section class="module-section reveal">
+    <div class="module-media">
+      <img
+        src="../../../assets/fluid-mechanics/fluid-domain.png"
+        alt="Computational C-grid domain around the airfoil"
+        class="module-img"
+      >
+    </div>
+
+    <div class="module-text order-last">
+      <h2>2. Airfoil CFD Setup</h2>
+
+      <div class="responsive-math-container">
+        <p>
+          The airfoil study operated at a free-stream velocity of 8 m/s with a characteristic
+          chord length of 0.1 m, giving a Reynolds number of approximately
+          \(5.33 \times 10^4\). This is a regime where laminar separation bubbles,
+          transition, and early separation strongly influence aerodynamic performance.
+        </p>
+
+        <div class="math-block">
+          $$Re = \frac{\rho V d}{\mu} = 5.33 \times 10^4$$
+        </div>
+
+        <p>
+          A three-dimensional C-grid computational domain was created with 10 chord
+          lengths upstream, 20 downstream, 20 chord lengths in height, and a 0.2-chord span.
+          The inlet used low-turbulence flow conditions, with a pressure outlet and zero-shear
+          far-field boundaries.
+        </p>
+
+        <p>
+          Steady-state CFD was run using the k-ω SST turbulence model with the
+          \(\gamma-Re_{\theta}\) transition model, chosen to better capture
+          transition and stall behaviour in low-Reynolds-number airfoil flow.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="module-section reveal">
+    <div class="module-text">
+      <h2>3. Analytical & XFOIL Comparison</h2>
+
+      <div class="responsive-math-container">
+        <p>
+          Thin-airfoil theory provided an inviscid baseline for lift prediction, while XFOIL
+          supplied viscous aerodynamic polars for the NACA profiles. The analytical approach
+          predicts a linear lift increase with angle of attack and cannot capture drag, separation,
+          or stall.
+        </p>
+
+        <div class="math-block">
+          $$C_l = 2\pi\left(\alpha - \alpha_{L=0}\right)$$
+        </div>
+
+        <p>
+          XFOIL predicted the NACA 0019 profile to stall at approximately 8.8° and to
+          reach a peak lift-to-drag ratio of around 23 at 6.2°. The NACA 2421 had a lower
+          maximum \(C_l/C_d\) of approximately 8.2 at 2.2°, illustrating the influence of
+          camber and low-Reynolds-number separation behaviour.
+        </p>
+
+        <p>
+          The comparison showed why thin-airfoil theory is useful for first estimates but
+          insufficient for practical design decisions where viscosity, thickness, and boundary
+          layer separation govern the operating envelope.
+        </p>
+      </div>
+    </div>
+
+    <div class="module-media">
+      <div
+        class="carousel"
+        data-images='[
+          "../../../assets/fluid-mechanics/fluid-theory.png",
+          "../../../assets/fluid-mechanics/fluid-comparison.png"
+        ]'>
+      </div>
+    </div>
+  </section>
+
+  <section class="module-section reveal">
+    <div class="module-media">
+      <img
+        src="../../../assets/fluid-mechanics/fluid-mesh.png"
+        alt="Structured mesh around NACA 0019 airfoil"
+        class="module-img"
+      >
+    </div>
+
+    <div class="module-text order-last">
+      <h2>4. Mesh & Flow Physics</h2>
+
+      <p>
+        A structured, biased mesh was produced around the airfoil to retain
+        \(y^+ < 1\), enabling near-wall flow resolution without relying on wall functions.
+        The simulation used approximately 300,000 elements and converged when residuals
+        fell below \(1 \times 10^{-6}\).
+      </p>
+
+      <p>
+        The mesh quality remained well within recommended practice, with an average
+        orthogonal quality of 0.97 and average skewness of 0.05. Refinement around the
+        leading edge, trailing edge, and airfoil surface captured the gradients required
+        to resolve pressure recovery and separation.
+      </p>
+
+      <p>
+        The pressure contour showed high pressure at the lower leading-edge stagnation
+        region and low pressure over the suction side, demonstrating the pressure difference
+        responsible for aerodynamic lift.
+      </p>
+    </div>
+  </section>
+
+  <section class="module-section reveal">
+    <div class="module-text">
+      <h2>5. Stall & Profile Comparison</h2>
+
+      <p>
+        CFD pathlines captured the transition from attached flow before stall to a separated,
+        recirculating wake after stall. This visualisation linked the aerodynamic coefficients
+        directly to the underlying flow physics rather than treating lift and drag as isolated
+        output values.
+      </p>
+
+      <p>
+        CFD broadly reproduced the XFOIL aerodynamic trends, while predicting some
+        differences in peak lift, drag, and stall angle. These differences are expected in a
+        low-Reynolds-number regime where laminar separation bubbles, transition treatment,
+        mesh sensitivity, and steady-state assumptions can shift the apparent stall behaviour.
+      </p>
+
+      <p>
+        The circular profile offered a useful bluff-body comparison. It produced negligible
+        lift and a drag coefficient close to 0.79 across the tested angles, with a broad
+        recirculating wake confirming the penalty of large-scale flow separation.
+      </p>
+    </div>
+
+    <div class="module-media">
+      <div
+        class="carousel"
+        data-images='[
+          "../../../assets/fluid-mechanics/fluid-stall.png",
+          "../../../assets/fluid-mechanics/fluid-circle.png"
+        ]'>
+      </div>
+    </div>
+  </section>
+
+  <section class="module-section reveal">
+    <div class="module-media">
+      <img
+        src="../../../assets/fluid-mechanics/fluid-monopile.png"
+        alt="Wave loading problem definition for a monopile"
+        class="module-img"
+      >
+    </div>
+
+    <div class="module-text order-last">
+      <h2>6. Airy Wave Theory & Monopile Loading</h2>
+
+      <div class="responsive-math-container">
+        <p>
+          The offshore-loading section applied linear Airy wave theory to calculate the wave
+          kinematics acting on a monopile-supported meteorological mast. The scenario used
+          a 3 m wave height, 7.5 m monopile diameter, 160 m water depth, and 15 s wave period.
+        </p>
+
+        <p>
+          The calculated wavelength was 351.3 m, giving \(D/\lambda = 0.021\).
+          This is below the 0.2 threshold, confirming that the Morison equation was appropriate
+          for the slender-structure loading condition.
+        </p>
+
+        <div class="math-block">
+          $$\lambda = \frac{T^2g}{2\pi} = 351.3\ \mathrm{m}$$
+        </div>
+
+        <p>
+          The depth-to-wavelength ratio was approximately 0.46 — formally intermediate
+          depth — but the deep-water approximation introduced an estimated free-surface
+          velocity difference of only 0.65%, making the specified deep-water formulation
+          appropriate for the calculation.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="module-section reveal">
+    <div class="module-text">
+      <h2>7. Morison Equation Result</h2>
+
+      <div class="responsive-math-container">
+        <p>
+          The maximum water-particle velocity was calculated as 0.628 m/s, producing a
+          Keulegan–Carpenter number of 1.26. Together with the geometry ratio, this placed
+          the system within an inertia-dominated loading regime.
+        </p>
+
+        <p>
+          The drag contribution was therefore considered negligible and the horizontal wave
+          load was governed by the inertia component of the Morison equation.
+        </p>
+
+        <div class="math-block">
+          $$F = \frac{1}{2}\rho C_d A_p u|u|
+          + C_m\rho V_{\mathrm{vol}}\frac{\partial u}{\partial t}$$
+        </div>
+
+        <div class="math-block">
+          $$F_I(t) = -1.256\cos(kx-\omega t)\ \mathrm{MN}$$
+        </div>
+
+        <p>
+          The resulting maximum horizontal wave-induced force on the monopile was:
+        </p>
+
+        <div class="highlight-result">
+          <span>Maximum horizontal wave load</span>
+          <strong>1.256 MN</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="module-media">
+      <img
+        src="../../../assets/fluid-mechanics/fluid-monopile.png"
+        alt="Monopile wave loading configuration"
+        class="module-img"
+      >
+    </div>
+  </section>
+
+  <section class="module-cta">
+    <div class="module-cta-inner">
+      <h3>Full Technical Report</h3>
+      <h2>Download the Assignment</h2>
+
+      <p class="module-cta-text">
+        The full report includes aerodynamic coefficient comparisons, CFD contours,
+        mesh strategy, Airy-wave assumptions, and the complete Morison-equation derivation.
+      </p>
+
+      <a
+        href="../../../assets/fluid-mechanics/492991-FLUID-MECHANICS-AND-LOADING-ASSIGNMENT.pdf"
+        download
+        class="btn primary module-download"
+      >
+        ↓ Download Full Report (PDF)
+      </a>
+
+      <a href="../../modules.html" class="btn secondary module-back">
+        ← Back to Modules
+      </a>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <p>© 2026 Isaac Summers</p>
+</footer>
+
+<script src="fluid-mechanics.js"></script>
+</body>
+</html>

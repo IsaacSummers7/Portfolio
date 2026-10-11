@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Climbing Wall | Isaac Summers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="bitboard.css">
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="../../index.html" class="logo">← Isaac Summers</a>
+    <div class="nav-links"><a href="../../projects.html">Projects</a></div>
+  </div>
+</nav>
+
+<div class="board-wrapper">
+
+<section class="board-hero">
+  <img src="../../assets/bitboard/Hero.jpg" alt="Hero" class="board-hero-bg">
+  <div class="board-hero-overlay">
+    <div class="fade-in-up">
+      <div class="card-tag">Group Project · Mechatronics</div>
+      <h1>AI Climbing Wall</h1>
+    </div>
+    <div class="board-hero-right fade-in-up delayT">
+      <p>An electric-actuated, AI-scanned climbing wall for dynamic route-setting, precision angle control and full mechatronic safety.</p>
+    </div>
+    <div class="board-scroll-indicator">↓</div>
+  </div>
+</section>
+
+<section class="board-section reveal">
+  <div class="board-text">
+    <h2>Smart Route-Setting</h2>
+    <p>Scan your custom holds layout via camera, auto-locate them on a touchscreen, and draw new routes in seconds.</p>
+    <p>The system uses computer vision to detect hold positions and map them to an interactive interface, allowing climbers and setters to create, share, and modify routes without physically rearranging the wall.</p>
+  </div>
+  <div class="board-media">
+    <img src="../../assets/bitboard/UI.png" alt="Touchscreen route-setting interface" class="board-img">
+  </div>
+</section>
+
+<section class="board-section reveal">
+  <div class="board-media">
+    <img src="../../assets/bitboard/CAD1.jpg" alt="CAD model of the climbing wall" class="board-img">
+  </div>
+  <div class="board-text order-last">
+    <h2>Mechatronic Safety</h2>
+    <p>Redundant sensors and emergency locks engage on actuator fault to protect climber and equipment.</p>
+    <p>The wall's angle-adjustment system is designed with multiple layers of protection, ensuring that any failure in the actuation system triggers an immediate safe state.</p>
+  </div>
+</section>
+
+<section class="board-section reveal">
+  <div class="board-text">
+    <h2>Sustainable by Design</h2>
+    <p>FEA-validated minimal-metal design for sustainability — over 80% wood construction.</p>
+    <p>Finite element analysis was used to verify the structural integrity of the primarily timber frame, allowing metal components to be minimised without compromising safety or rigidity.</p>
+  </div>
+  <div class="board-media">
+    <img src="../../assets/bitboard/FEABoard.png" alt="FEA analysis of the climbing wall frame" class="board-img">
+  </div>
+</section>
+
+<section class="board-section reveal">
+  <div class="board-media">
+    <img src="../../assets/bitboard/Wood.jpg" alt="Hardwood frame detail" class="board-img">
+  </div>
+  <div class="board-text order-last">
+    <h2>Materials & Build</h2>
+    <p>Sustainably sourced hardwood frame with durable finish and modular actuator mounts.</p>
+    <p>The construction prioritises renewable materials and modularity, making the wall easier to maintain, upgrade, and eventually disassemble for reuse.</p>
+  </div>
+</section>
+
+
+
+<div class="board-modal" id="modal">
+  <button class="modal-close" id="modalClose">×</button>
+  <button class="modal-prev" id="modalPrev">‹</button>
+  <img class="modal-img" id="modalImg" src="" alt="">
+  <button class="modal-next" id="modalNext">›</button>
+</div>
+
+<a href="../../projects.html" class="btn ghost back">← Back to Projects</a>
+</div>
+
+<footer><p>© 2026 Isaac Summers</p></footer>
+<script src="bitboard.js"></script>
+</body>
+</html>

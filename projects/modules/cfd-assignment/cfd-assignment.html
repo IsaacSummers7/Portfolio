@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CFD Assignment | Isaac Summers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}]});"></script>
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="cfd-assignment.css">
+<link rel="stylesheet" href="/projects/modules/group.css">
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="../../../index.html" class="logo">← Isaac Summers</a>
+    <div class="nav-links"><a href="../../../projects.html">Projects</a></div>
+  </div>
+</nav>
+
+
+<div class="module-wrapper">
+
+
+<section class="module-hero">
+  <img src="../../../assets/cfd-assignment/cfd-hero.png" alt="Hero" class="module-hero-bg">
+  <div class="module-hero-overlay">
+    <div class="fade-in-up">
+      <div class="card-tag">MSc Module · CFD</div>
+      <h1>CFD Assessment of a NACA 4412 Airfoil for Urban VAWTs</h1>
+    </div>
+    <div class="module-hero-right fade-in-up delayT">
+      <p>CFD investigation into the aerodynamic performance of a NACA 4412 airfoil for urban vertical axis wind turbine applications, including mesh independence, validation, and a suction-side dimple modification study.</p>
+    </div>
+    <div class="module-scroll-indicator">↓</div>
+  </div>
+</section>
+
+
+<section class="module-section reveal">
+  <div class="module-text">
+    <h2>1. Context & Objectives</h2>
+    <p>Urban wind environments present a challenging operating regime for vertical axis wind turbines (VAWTs) — lower mean wind speeds, higher turbulence intensity, and continuously varying angle of attack across each rotation. The aerodynamic performance of the blade section is therefore critical to overall energy capture.</p>
+    <p>This study used CFD to assess the baseline NACA 4412 airfoil at two representative urban wind speeds (3 m/s and 15 m/s) at a fixed 10° angle of attack, then designed and evaluated a suction-side dimple modification intended to improve low-Reynolds-number performance through boundary layer energisation.</p>
+    <ul>
+      <li>Simulate baseline flow at 3 m/s and 15 m/s, AoA 10°</li>
+      <li>Perform a mesh independence study at 15 m/s</li>
+      <li>Design and implement a geometric modification (suction-side dimples)</li>
+      <li>Compare lift, drag, and flow structures between baseline and modified profiles</li>
+    </ul>
+  </div>
+  <div class="module-media">
+    <div class="carousel" data-images='["../../../assets/cfd-assignment/cfd1.png","../../../assets/cfd-assignment/cfd2.png"]'></div>
+  </div>
+</section>
+
+
+<section class="module-section reveal">
+  <div class="module-media">
+    <img src="../../../assets/cfd-assignment/cfd-mesh.png" alt="CFD mesh" class="module-img">
+  </div>
+  <div class="module-text order-last">
+    <h2>2. Methodology</h2>
+    <div class="responsive-math-container">
+      <p>A structured multiblock C-grid domain was generated in ANSYS ICEM CFD, extending 20 chord lengths upstream, 30 downstream, and 20 perpendicular — keeping blockage below 3%. An O-grid around the airfoil ensured orthogonal cells for accurate boundary layer resolution at high-curvature regions.</p>
+      <p>First cell height was targeted at \(y^+ \approx 1\) to resolve the viscous sublayer directly, with refinement concentrated at the leading/trailing edges, suction surface, and wake. Mesh quality metrics (skewness, determinant, angle) were verified against ICEM best-practice thresholds.</p>
+      <p>Simulations used a steady, 2D, incompressible pressure-based solver in ANSYS Fluent with the k-ω SST turbulence model, second-order upwind discretisation, and a coupled pseudo-transient formulation. Convergence was confirmed via residuals, mass imbalance, and force stabilisation.</p>
+      <div class="math-block">$$C_L = \frac{L}{\frac{1}{2}\rho U^2 c}, \quad C_D = \frac{D}{\frac{1}{2}\rho U^2 c}$$</div>
+    </div>
+  </div>
+</section>
+
+
+<section class="module-section reveal">
+  <div class="module-text">
+    <h2>3. Mesh Independence & Validation</h2>
+    <div class="responsive-math-container">
+      <p>A four-level mesh independence study at 15 m/s confirmed smooth convergence of both \(C_L\) and \(C_D\), with changes between the medium and fine grids below 1% for both coefficients.</p>
+      <p>Grid Convergence Index (GCI) analysis using Richardson extrapolation quantified discretisation uncertainty at under 1% for lift and under 2% for drag on the selected medium mesh (38,016 cells), balancing accuracy against computational cost.</p>
+      <div class="math-block">$$\mathrm{GCI}_{21} = F_s \left| \frac{\varepsilon_{21}/r^p - \varepsilon_{32}/r^p}{1 - r^p} \right|$$</div>
+      <p>The model was validated against published wind tunnel data for the NACA 4412 at a comparable Reynolds number, showing lift agreement within 20% and profile drag within 14% relative to wake-rake measurements — reasonable confidence given the fully turbulent modelling assumption.</p>
+    </div>
+  </div>
+  <div class="module-media">
+    <img src="../../../assets/cfd-assignment/cfd-validation.png" alt="Validation comparison" class="module-img">
+  </div>
+</section>
+
+
+<section class="module-section reveal">
+  <div class="module-media">
+    <img src="../../../assets/cfd-assignment/cfd-results.png" alt="Pressure and velocity contours" class="module-img">
+  </div>
+  <div class="module-text order-last">
+    <h2>4. Baseline Results</h2>
+    <div class="responsive-math-container">
+      <p>The baseline NACA 4412 showed the expected cambered-airfoil pressure distribution — leading-edge stagnation, suction peak, and pressure recovery — confirming the simulation captured fundamental lift-producing physics.</p>
+      <p>At 15 m/s, flow remained attached over most of the suction surface with separation delayed toward the trailing edge, yielding \(C_L/C_D = 49.5\). At 3 m/s, earlier separation (around 55% chord) increased drag and reduced efficiency to \(C_L/C_D = 28.9\), consistent with low-Reynolds-number separation losses.</p>
+      <p>Skin friction coefficient distributions confirmed separation location, with \(C_f \to 0\) marking the onset of separated flow — earlier at low Re, later at high Re, matching published experimental trends.</p>
+    </div>
+  </div>
+</section>
+
+
+<section class="module-section reveal">
+  <div class="module-text">
+    <h2>5. Dimple Modification Results</h2>
+    <div class="responsive-math-container">
+      <p>Two dimple configurations (single and double, placed upstream of the expected separation point per literature guidance) were simulated with locally refined meshes around the features.</p>
+      <p>Contrary to the design objective, both configurations increased drag and slightly reduced lift compared to the baseline at both wind speeds — the two-dimple case showing a larger penalty than the single-dimple case.</p>
+      <p>Post-processing revealed the dimples generated local turbulence confined within the cavity rather than energising the downstream boundary layer. This is consistent with known limitations of 2D steady RANS in capturing the 3D vortex structures that drive dimple effectiveness in higher-fidelity studies.</p>
+      <p>The negative result is still practically valuable — it demonstrates that passive flow control concepts are highly sensitive to Reynolds number, boundary layer state, and design parameters, and would require case-specific optimisation and higher-fidelity modelling before VAWT deployment.</p>
+    </div>
+  </div>
+  <div class="module-media">
+    <div class="carousel" data-images='["../../../assets/cfd-assignment/cfd-dimple1.png","../../../assets/cfd-assignment/cfd-dimple2.png"]'></div>
+  </div>
+</section>
+
+
+<section class="module-section reveal">
+  <div class="module-media">
+    <img src="../../../assets/cfd-assignment/cfd-conclusion.png" alt="Conclusion visual" class="module-img">
+  </div>
+  <div class="module-text order-last">
+    <h2>6. Conclusion</h2>
+    <p>This study established a numerically credible baseline for the NACA 4412 in an urban VAWT context, quantifying the Reynolds-number-driven performance degradation relevant to real operating conditions.</p>
+    <p>The dimple modification did not achieve its intended performance improvement under the tested conditions, but the rigorous mesh independence, validation, and flow-physics analysis provide a solid foundation for future passive flow control work on VAWT blade sections.</p>
+    <a href="../../../assets/cfd-assignment/CFD_Assignment_492991.pdf" download class="btn primary module-download">↓ Download Full Report (PDF)</a>
+  </div>
+</section>
+
+
+<section class="module-cta">
+  <div class="module-cta-inner">
+    <h3>Explore More</h3>
+    <h2>Other Module Projects</h2>
+    <a href="../modules.html" class="btn primary">← Back to Modules</a>
+  </div>
+</section>
+
+
+</div>
+
+
+<footer><p>© 2026 Isaac Summers</p></footer>
+<script src="cfd-assignment.js"></script>
+</body>
+</html>

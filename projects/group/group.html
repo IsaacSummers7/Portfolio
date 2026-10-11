@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tidal Turbine Group Project | Isaac Summers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}]});"></script>
+<link rel="stylesheet" href="../../styles.css">
+<link rel="stylesheet" href="group.css">
+</head>
+<body>
+<nav>
+  <div class="nav-inner">
+    <a href="../../index.html" class="logo">← Isaac Summers</a>
+    <div class="nav-links"><a href="../../projects.html">Projects</a></div>
+  </div>
+</nav>
+
+<div class="group-wrapper">
+
+<section class="group-hero">
+  <img src="../../assets/group/hero.png" alt="Hero" class="group-hero-bg">
+  <div class="group-hero-overlay">
+    <div class="fade-in-up">
+      <div class="card-tag">Group Project · CFD · FEA · Industry-linked</div>
+      <h1>Tidal Turbine Group Project</h1>
+    </div>
+    <div class="group-hero-right fade-in-up delayT">
+      <p>Experimental and computational investigation of a novel bladeless tidal turbine - including parametric CAD reconstruction, tow-tank testing, CFD with uncertainty quantification, and one-way coupled FSI structural analysis.</p>
+    </div>
+    <div class="group-scroll-indicator">↓</div>
+  </div>
+</section>
+
+<section class="group-section reveal">
+  <div class="group-text">
+    <h2>1. A Novel Bladeless Turbine Concept</h2>
+    <p>This group project investigated a novel enclosed hydrokinetic turbine that generates torque through jet reaction at tangentially oriented nozzle exits, rather than conventional blade loading. The concept combines the jet-reaction simplicity of the Hero engine and Segner wheel with a radial-outflow architecture, offering a scarcely documented approach to tidal and riverine energy conversion.</p>
+    <p>The project combined physical tow-tank testing with steady-state CFD and one-way coupled FSI analysis to establish a foundational experimental and computational dataset for a device whose performance characteristics had not previously been documented in the open literature.</p>
+  </div>
+  <div class="group-media">
+    <div class="carousel" data-images='["../../assets/group/prototype1.png","../../assets/group/prototype2.png"]'></div>
+  </div>
+</section>
+
+<section class="group-section reveal">
+  <div class="group-media">
+    <img src="../../assets/group/cad-model.png" alt="Parametric CAD model of the turbine" class="group-img">
+  </div>
+  <div class="group-text order-last">
+    <h2>2. Rebuilding the Geometry from Scratch</h2>
+    <div class="responsive-math-container">
+      <p>The project began with only a coarse STL representation of the physical prototype — unsuitable for direct meshing or any future design modification. I was responsible for reconstructing the entire turbine geometry as a clean, parametric CAD model in CATIA V5, the only team member with the surface-modelling expertise to do so.</p>
+      <p>Using generative shape design, 3D sketching, surface construction, and boolean operations, the key features — axial inlet, internal guide vane passages, and tangential nozzles — were recreated from scratch to be simulation-ready.</p>
+      <p>A parametric approach was adopted throughout: critical dimensions such as inlet/outlet diameters, nozzle angle, and guide vane geometry were defined through dimensional relationships rather than fixed values, allowing rapid modification for future sensitivity studies and optimisation without rebuilding the model.</p>
+    </div>
+  </div>
+</section>
+
+<section class="group-section reveal">
+  <div class="group-text">
+    <h2>3. Tow-Tank Testing & Rig Design</h2>
+    <p>The prototype was tested in Cranfield's ocean tank, towed at speeds from 1.4 to 2.6 m/s while mounted beneath a floating platform. Torque, rotational speed, and drag were measured simultaneously across multiple load conditions, producing a complete performance map for the turbine.</p>
+    <p>I contributed to the design and fabrication of the rig attachment and instrumentation housing — including clamshell collars, a modular multi-layer housing for the torque sensor and generator, and mounting for the rectifier, wattmeter, and camera — all 3D-printed in ABS and PLA with gyroid infill for structural performance.</p>
+  </div>
+  <div class="group-media">
+    <div class="carousel" data-images='["../../assets/group/rig1.png","../../assets/group/rig2.png","../../assets/group/rig3.png"]'></div>
+  </div>
+</section>
+
+<section class="group-section reveal">
+  <div class="group-media">
+    <img src="../../assets/group/cfd-domain.png" alt="CFD domain configurations" class="group-img">
+  </div>
+  <div class="group-text order-last">
+    <h2>4. Steady-State CFD Analysis</h2>
+    <div class="responsive-math-container">
+      <p>A steady-state RANS CFD model was developed using the reconstructed CAD geometry, with the k-ω SST turbulence model resolving the viscous sublayer directly (targeting \(y^+ \approx 1\)) rather than relying on wall functions.</p>
+      <p>Two domain configurations were simulated — a towing-tank replica and an extended open-water domain — to quantify the effect of blockage on predicted drag and wake behaviour, informing whether experimental measurements required correction before use as deployment predictions.</p>
+      <div class="math-block">$$C_D = \frac{F_{\mathrm{drag}}}{\frac{1}{2}\rho A U^2}$$</div>
+      <p>The CFD model was validated against experimental drag measurements, confirming its ability to predict the turbine's hydrodynamic loading and providing confidence in its use for future design work.</p>
+    </div>
+  </div>
+</section>
+
+<section class="group-section reveal">
+  <div class="group-text">
+    <h2>5. Uncertainty Quantification & Blockage Analysis</h2>
+    <div class="responsive-math-container">
+      <p>I led the uncertainty quantification and blockage analysis for the CFD study, ensuring the numerical results were rigorously verified before being used for design decisions.</p>
+      <p><strong>Mesh independence & GCI:</strong> A three-grid convergence study (coarse, medium, fine) was performed on drag force, following the ASME Journal of Fluids Engineering procedure and Roache's GCI framework. The asymptotic range ratio confirmed all grids lay within the asymptotic range, validating the use of Richardson extrapolation.</p>
+      <div class="math-block">$$\mathrm{GCI}_{21} = F_s \left| \frac{\varepsilon_{21}/r^p - \varepsilon_{32}/r^p}{1 - r^p} \right|$$</div>
+      <p><strong>Blockage correction:</strong> A blockage sensitivity study compared the towing-tank domain against an extended open-water domain, quantifying the drag inflation due to confinement. An analytical blockage correction (Werle's method) was derived and applied to assess whether tow-tank measurements required adjustment before use as open-water predictions.</p>
+      <p><strong>Convergence verification:</strong> Convergence was assessed using multiple indicators — residuals, mass conservation, and force monitoring — rather than residuals alone, ensuring the solution was genuinely converged for engineering purposes.</p>
+    </div>
+  </div>
+  <div class="group-media">
+    <img src="../../assets/group/gci-mesh.png" alt="Mesh independence and GCI results" class="group-img">
+  </div>
+</section>
+
+<section class="group-section reveal">
+  <div class="group-media">
+    <img src="../../assets/group/fea-stress.png" alt="FEA stress distribution" class="group-img">
+  </div>
+  <div class="group-text order-last">
+    <h2>6. One-Way Coupled FSI Structural Analysis</h2>
+    <div class="responsive-math-container">
+      <p>To assess structural viability under operational loading, a one-way coupled fluid-structure interaction (FSI) analysis was performed, transferring hydrodynamic loads from the CFD solution to a structural finite element model.</p>
+      <p><strong>Materials compared:</strong> Three candidate materials were evaluated — ABS-CF (carbon fibre-reinforced ABS, baseline for 3D printing feasibility), GFRP, and CFRP — under identical geometry, boundary conditions, and loading.</p>
+      <p><strong>Model setup:</strong> The FEA model included gravity and hydrostatic pressure loads alongside the CFD-derived hydrodynamic loading, with a fixed support representing the shaft constraint. Mesh independence was verified through a separate GCI study on deformation.</p>
+      <div class="math-block">$$\sigma_{\mathrm{vm}} = \sqrt{\frac{1}{2}\left[(\sigma_1-\sigma_2)^2 + (\sigma_2-\sigma_3)^2 + (\sigma_3-\sigma_1)^2\right]}$$</div>
+      <p><strong>Outcome:</strong> All three materials remained within elastic limits under operational loading, with peak stress concentrations identified at the nozzle entrance. This confirmed the turbine as structurally viable and highlighted ABS-CF as a promising candidate for future 3D-printed tidal turbine applications.</p>
+    </div>
+  </div>
+</section>
+
+<section class="group-section reveal">
+  <div class="group-text">
+    <h2>7. Outcome & Legacy</h2>
+    <p>This project established the baseline CFD methodology, parametric CAD model, uncertainty quantification framework, and experimental dataset that directly enabled the later MSc thesis work — extending the steady, non-rotating analysis into a full transient rotating study with MRF, sliding mesh, and 1DOF dynamic mesh formulations.</p>
+    <p>The parametric CAD model and rigorous verification approach proved invaluable: they allowed rapid geometry iteration and confidence in the numerical results throughout the follow-on work, demonstrating the value of investing in a clean, simulation-ready model and thorough uncertainty quantification from the outset.</p>
+  </div>
+  <div class="group-media">
+    <img src="../../assets/group/testing.png" alt="Tow-tank testing" class="group-img">
+  </div>
+</section>
+
+<section class="group-cta">
+  <div class="group-cta-inner">
+    <h3>Full Technical Document</h3>
+    <h2>Interested in the Full Report?</h2>
+    <p class="nda-note">The full group project report may be shared under a non-disclosure agreement, subject to agreement from all parties involved.</p>
+    <a href="mailto:your.email@example.com" class="btn primary">Contact for Access</a>
+  </div>
+</section>
+
+</div>
+
+<footer><p>© 2026 Isaac Summers</p></footer>
+<script src="group.js"></script>
+</body>
+</html>

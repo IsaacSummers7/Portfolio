@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Digital Aircraft Controller Design | Isaac Summers</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}]});">
+</script>
+
+<link rel="stylesheet" href="../../../styles.css">
+<link rel="stylesheet" href="digital-controller.css">
+</head>
+
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../../../index.html" class="logo">← Isaac Summers</a>
+
+    <div class="nav-links">
+      <a href="../../../projects.html">Projects</a>
+    </div>
+  </div>
+</nav>
+
+<div class="module-wrapper">
+
+  <section class="module-hero">
+    <img
+      src="../../../assets/digital-controller/controller-hero.png"
+      alt="Digital controller performance plot"
+      class="module-hero-bg"
+    >
+
+    <div class="module-hero-overlay">
+      <div class="fade-in-up">
+        <div class="card-tag">Control Systems · Digital PID · Python</div>
+        <h1>Digital Controller Design for a Short-Period Aircraft Model</h1>
+      </div>
+
+      <div class="module-hero-right fade-in-up delayT">
+        <p>
+          Design, discretisation, stability analysis, actuator modelling, saturation testing,
+          anti-windup implementation, and Python validation for the short-period dynamics
+          of a DC-8 aircraft model.
+        </p>
+      </div>
+
+      <div class="module-scroll-indicator">↓</div>
+    </div>
+  </section>
+
+  <section class="module-section reveal">
+    <div class="module-text">
+      <h2>1. Design Objective</h2>
+
+      <p>
+        The objective was to design and validate a digital controller for the short-period
+        dynamics of a DC-8 aircraft model. The controller had to preserve closed-loop stability
+        while meeting time-domain requirements for rise time, settling time, overshoot, and
+        steady-state error.
+      </p>
+
+      <p>
+        The work progressed from a continuous-time plant model to a discrete implementation,
+        then tested whether the controller remained robust when practical effects were included:
+        finite sampling, actuator lag, control saturation, and increased command amplitude.
+      </p>
+
+      <div class="criteria-grid">
+        <div class="criteria-card">
+          <span>Settling time</span>
+          <strong>≤ 1.8 s</strong>
+        </div>
+
+        <div class="criteria-card">
+          <span>Rise time</span>
+          <strong>≤ 2.5 s</strong>
+        </div>
+
+        <div class="criteria-card">
+          <span>Overshoot</span>
+          <strong>≤ 5%</strong>
+        </div>
+
+        <div class="criteria-card">
+          <span>Steady-state error</span>
+          <strong>≤ 2%</strong>
+        </div>
+      </div>
+
+      <p>
+        Alongside these standard measures, performance indices were used to compare
+        tracking error, control-energy demand, and the rate of control action.
+      </p>
+    </div>
+
+    <div class="module-media">
+      <div
+        class="carousel"
+        data-images='[
+          "../../../assets/digital-controller/controller-bode.png",
+          "../../../assets/digital-controller/controller-nyquist-step.png"
+        ]'>
+      </div>
+    </div>
+  </section>
+
+  <section class="module-section reveal">
+    <div class="module-media">
+      <img
+        src="../../../assets/digital-controller/controller-bode.png"
+        alt="Bode plot comparison of continuous and discrete aircraft models"
+        class="module-img"
+      >
+    </div>
+
+    <div class="module-text order-last">
+      <h2>2. Discretisation & Sampling Time</h2>
+
+      <div class="responsive-math-container">
+        <p>
+          The original continuous-time aircraft model was converted into a discrete-time
+          representation for digital control. Sampling frequency was selected from the
+          closed-loop bandwidth rather than the absolute highest-frequency content alone,
+          ensuring the controller captured the useful aircraft dynamics without creating
+          unnecessary computational burden.
+        </p>
+
+        <div class="math-block">
+          $$f_s = 10 \text{ to } 25 \times BW$$
+        </div>
+
+        <p>
+          With a closed-loop bandwidth of approximately \(4.55\ \mathrm{rad/s}\),
+          the selected sampling frequency was 20 Hz, corresponding to:
+        </p>
+
+        <div class="math-block">
+          $$T_s = 0.05\ \mathrm{s}$$
+        </div>
+
+        <p>
+          Bode, Nyquist, and step-response comparisons showed that the 20 Hz discrete
+          model reproduced the relevant continuous-time dynamics closely. Lower sampling
+          around \(10BW\) began to introduce visible magnitude and phase deviation before
+          the important stability region, while the 20 Hz implementation remained an
+          efficient and accurate choice.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="module-section reveal">
+    <div class="module-text">
+      <h2>3. Digital PID Implementation</h2>
+
+      <div class="responsive-math-container">
+        <p>
+          The discrete aircraft model was implemented as a linear difference equation,
+          allowing the output at each sample to be calculated from previous input and
+          output states.
+        </p>
+
+        <div class="math-block">
+          $$y[k] =
+          b_0u[k] + b_1u[k-1] + b_2u[k-2]
+          - a_1y[k-1] - a_2y[k-2]$$
+        </div>
+
+        <p>
+          A discrete PID controller generated the control action from proportional,
+          integral, and derivative terms. The controller continuously compared the
+          reference command with the measured output and updated the input at each
+          sampling instant.
+        </p>
+
+        <div class="math-block">
+          $$u[k] =
+          K_p e[k]
+          + K_i \sum_{i=0}^{k}e[i]T_s
+          + K_d\frac{e[k]-e[k-1]}{T_s}$$
+        </div>
+
+        <p>
+          The derivative term improved response speed and damping, but it also introduced
+          an important practical trade-off: abrupt step commands can create a large initial
+          derivative kick, particularly at small sampling times. This was evaluated using
+          control-effort metrics rather than considering tracking performance alone.
+        </p>
+      </div>
+    </div>
+
+    <div class="module-media">
+      <img
+        src="../../../assets/digital-controller/controller-pid-response.png"
+        alt="Continuous and discrete PID step responses and control signals"
+        class="module-img"
+      >
+    </div>
+  </section>
+
+  <section class="module-section reveal">
+    <div class="module-media">
+      <img
+        src="../../../assets/digital-controller/controller-root-locus.png"
+        alt="Continuous and discrete root locus plots for the PID controlled aircraft model"
+        class="module-img"
+      >
+    </div>
+
+    <div class="module-text order-last">
+      <h2>4. PID Tuning & Stability</h2>
+
+      <p>
+        Three PID design approaches were compared: root-locus pole placement,
+        MATLAB PID Tuner initialisation, and iterative tuning based on time-domain
+        response and control-effort metrics.
+      </p>
+
+      <p>
+        The final controller used the iterative design because it gave the strongest balance
+        between response quality and practical control effort:
+      </p>
+
+      <div class="gain-grid">
+        <div>
+          <span>Proportional gain</span>
+          <strong>\(K_p = 0.24\)</strong>
+        </div>
+
+        <div>
+          <span>Integral gain</span>
+          <strong>\(K_i = 1.57\)</strong>
+        </div>
+
+        <div>
+          <span>Derivative gain</span>
+          <strong>\(K_d = 4.9\)</strong>
+        </div>
+      </div>
+
+      <p>
+        With this controller, the continuous and discrete systems both met the required
+        performance criteria. The discrete implementation achieved approximately 0.93 s
+        rise time, 1.66 s settling time, zero overshoot, and zero steady-state error.
+      </p>
+
+      <p>
+        Root-locus analysis confirmed stability across positive gain values: continuous poles
+        remained in the left-half \(s\)-plane, while discrete poles remained within the unit
+        circle in the \(z\)-plane. Bode analysis also showed closely matched stability behaviour
+        between continuous and discrete implementations.
+      </p>
+    </div>
+  </section>
+
+  <section class="module-section reveal">
+    <div class="module-text">
+      <h2>5. Control-Effort Trade-Offs</h2>
+
+      <div class="responsive-math-container">
+        <p>
+          Controller performance was evaluated using standard tracking and control-effort
+          indices, not just rise time and overshoot. This matters because an excessively
+          aggressive response can demand unrealistic actuator motion or increase energy use.
+        </p>
+
+        <div class="math-block">
+          $$ISE = \int_0^\infty e^2(t)\,dt$$
+        </div>
+
+        <div class="math-block">
+          $$ITAE = \int_0^\infty t|e(t)|\,dt$$
+        </div>
+
+        <div class="math-block">
+          $$IACE = \int_0^\infty |u(t)|\,dt$$
+        </div>
+
+        <div class="math-block">
+          $$IACRE = \int_0^\infty \left|\frac{du(t)}{dt}\right|dt$$
+        </div>
+
+        <p>
+          The chosen controller delivered lower tracking-error indices than the initial
+          root-locus design and significantly lower control-rate demand than the more
+          aggressive MATLAB PID Tuner solution. It therefore achieved the best overall
+          compromise between fast tracking, no overshoot, and manageable actuator demand.
+        </p>
+      </div>
+    </div>
+
+    <div class="module-media">
+      <img
+        src="../../../assets/digital-controller/controller-pid-response.png"
+        alt="PID response and control effort comparison"
+        class="module-img"
+      >
+    </div>
+  </section>
+
+  <section class="module-section reveal">
+    <div class="module-media">
+      <img
+        src="../../../assets/digital-controller/controller-sampling.png"
+        alt="Sampling time investigation root locus and step response"
+        class="module-img"
+      >
+    </div>
+
+    <div class="module-text order-last">
+      <h2>6. Sampling-Time Robustness</h2>
+
+      <p>
+        The final digital controller was tested across sample periods of 1 ms, 20 ms,
+        50 ms, 100 ms, and 250 ms. The analysis demonstrated the expected compromise
+        between discrete approximation accuracy, control-signal smoothness, and computational cost.
+      </p>
+
+      <p>
+        Increasing sample time introduced additional effective phase lag. The controller was
+        therefore acting on increasingly outdated information, producing larger corrections,
+        increased overshoot, and poorer tracking.
+      </p>
+
+      <div class="sampling-result">
+        <span>Key result</span>
+        <strong>50–100 ms was the practical operating range.</strong>
+        <p>
+          At 250 ms, the system no longer met the 1.8 s settling-time requirement and
+          overshoot increased to approximately 15%.
+        </p>
+      </div>
+
+      <p>
+        Very small sample periods improved tracking metrics, but amplified derivative kick
+        because the derivative approximation divides the error difference by \(T_s\).
+        This greatly increased control-rate demand and could contribute to actuator wear
+        in a physical system.
+      </p>
+    </div>
+  </section>
+
+  <section class="module-section reveal">
+    <div class="module-text">
+      <h2>7. Actuator Dynamics & Saturation</h2>
+
+      <div class="responsive-math-container">
+        <p>
+          A first-order actuator model was introduced to move beyond the ideal-actuator
+          assumption and evaluate practical implementation effects:
+        </p>
+
+        <div class="math-block">
+          $$G_{act}(s) = \frac{1}{0.1s + 1}$$
+        </div>
+
+        <p>
+          The additional actuator pole introduced lag and made the combined system third order
+          after discretisation. At the nominal setpoint, the actuator created only a small
+          increase in overshoot to around 2%, while preserving zero steady-state error and
+          maintaining compliance with the original design criteria.
+        </p>
+
+        <p>
+          Control saturation was then applied at \(u_c = \pm20\). Small command amplitudes
+          remained within this limit, but larger setpoints caused the actuator to saturate.
+          At a setpoint amplitude of 8, the available actuator authority was insufficient to
+          reach the reference command, producing a large steady-state error.
+        </p>
+      </div>
+    </div>
+
+    <div class="module-media">
+      <div
+        class="carousel"
+        data-images='[
+          "../../../assets/digital-controller/controller-actuator.png",
+          "../../../assets/digital-controller/controller-saturation.png"
+        ]'>
+      </div>
+    </div>
+  </section>
+
+  <section class="module-section reveal">
+    <div class="module-media">
+      <img
+        src="../../../assets/digital-controller/controller-saturation.png"
+        alt="Controller response with anti windup implementation"
+        class="module-img"
+      >
+    </div>
+
+    <div class="module-text order-last">
+      <h2>8. Anti-Windup Design</h2>
+
+      <p>
+        Once the actuator saturated, the integral term could continue accumulating error
+        even though the actuator could not provide additional control effort. This is known
+        as integral windup and can lead to slow recovery, unnecessary overshoot, and degraded
+        transient response.
+      </p>
+
+      <p>
+        Two anti-windup strategies were tested: integral clamping and back-calculation.
+        Clamping could perform well when manually tuned for a particular command amplitude,
+        but its fixed limit made it less adaptable across different conditions.
+      </p>
+
+      <div class="math-block">
+        $$\dot{I} =
+        K_i e +
+        K_{aw}(u_{sat} - u)$$
+      </div>
+
+      <p>
+        Back-calculation was selected as the more robust method because it feeds the
+        difference between saturated and unsaturated control effort back into the integrator,
+        allowing it to unwind smoothly after saturation.
+      </p>
+
+      <p>
+        With back-calculation anti-windup, the system could tolerate command amplitudes
+        up to approximately 7.5 before violating the performance requirements, compared
+        with around 3.2 without the mitigation.
+      </p>
+    </div>
+  </section>
+
+  <section class="module-section reveal">
+    <div class="module-text">
+      <h2>9. Python Verification</h2>
+
+      <p>
+        The complete discrete controller was independently reimplemented in Python to remove
+        dependence on MATLAB. The Python script included system discretisation, PID logic,
+        performance-index calculations, saturation, and anti-windup behaviour.
+      </p>
+
+      <p>
+        Python reproduced MATLAB's discrete closed-loop response closely. For the nominal
+        controller, the Python implementation achieved a 0.90 s rise time and 1.70 s settling
+        time, compared with 0.93 s and 1.66 s respectively in MATLAB.
+      </p>
+
+      <p>
+        This validation showed that the approach could be transferred into an open-source,
+        reproducible workflow suitable for wider integration without requiring proprietary
+        control-system software.
+      </p>
+    </div>
+
+    <div class="module-media">
+      <img
+        src="../../../assets/digital-controller/controller-python.png"
+        alt="Python and MATLAB controller response comparison"
+        class="module-img"
+      >
+    </div>
+  </section>
+
+  <section class="module-cta">
+    <div class="module-cta-inner">
+      <h3>Full Technical Report</h3>
+      <h2>Download the Assignment</h2>
+
+      <p class="module-cta-text">
+        The full report contains the plant model, discrete difference equations, PID tuning
+        methods, stability analysis, sampling-time study, actuator modelling, anti-windup
+        comparison, and Python validation workflow.
+      </p>
+
+      <a
+        href="../../../assets/digital-controller/SRN_21043693_Report-Copy.pdf"
+        download
+        class="btn primary module-download"
+      >
+        ↓ Download Full Report (PDF)
+      </a>
+
+      <a href="../modules.html" class="btn secondary module-back">
+        ← Back to Modules
+      </a>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <p>© 2026 Isaac Summers</p>
+</footer>
+
+<script src="digital-controller.js"></script>
+</body>
+</html>

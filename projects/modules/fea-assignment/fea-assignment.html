@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finite Element Assessment of a Double-Lug Clevis | Isaac Summers</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+
+<script
+  defer
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'\\(',right:'\\)',display:false}]});">
+</script>
+
+<link rel="stylesheet" href="../../../styles.css">
+<link rel="stylesheet" href="fea-assignment.css">
+</head>
+
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../../../index.html" class="logo">← Isaac Summers</a>
+
+    <div class="nav-links">
+      <a href="../../../projects.html">Projects</a>
+    </div>
+  </div>
+</nav>
+
+<div class="module-wrapper">
+
+  <section class="module-hero">
+    <img
+      src="../../../assets/fea-assignment/fea-hero.png"
+      alt="Finite element stress contour on a double-lug clevis"
+      class="module-hero-bg"
+    >
+
+    <div class="module-hero-overlay">
+      <div class="fade-in-up">
+        <div class="card-tag">MSc Module · FEA · Abaqus</div>
+        <h1>Finite Element Assessment of Stress Concentrations in a Double-Lug Clevis</h1>
+      </div>
+
+      <div class="module-hero-right fade-in-up delayT">
+        <p>
+          A parametric finite element investigation into stress concentrations,
+          deformation behaviour, mesh convergence, and the influence of bore
+          diameter and lug-root fillet radius on a loaded double-lug clevis.
+        </p>
+      </div>
+
+      <div class="module-scroll-indicator">↓</div>
+    </div>
+  </section>
+
+  <section class="module-section reveal">
+    <div class="module-text">
+      <h2>1. Problem & Objectives</h2>
+
+      <p>
+        Double-lug clevis joints are widely used to transfer load through a pin or bolt
+        connection. Their geometry naturally introduces local stress concentrations around
+        the bore and at the lug-base transition — areas that can govern yielding, crack
+        initiation, and fatigue performance.
+      </p>
+
+      <p>
+        This study used a 3D linear-elastic finite element model to evaluate how two
+        key geometric parameters affect the structural response of a double-lug clevis:
+        bore diameter and lug-root fillet radius.
+      </p>
+
+      <ul>
+        <li>Create and verify a 3D double-lug clevis model using CATIA V5 and Abaqus CAE</li>
+        <li>Apply a representative pin load through a kinematic coupling</li>
+        <li>Perform mesh convergence and analytical sanity checking</li>
+        <li>Evaluate displacement and von Mises stress across five parametric cases</li>
+        <li>Identify the design feature most influential in reducing stress concentration</li>
+      </ul>
+    </div>
+
+    <div class="module-media">
+      <div
+        class="carousel"
+        data-images='[
+          "../../../assets/fea-assignment/fea-geometry.png",
+          "../../../assets/fea-assignment/fea-loads.png"
+        ]'>
+      </div>
+    </div>
+  </section>
+
+  <section class="module-section reveal">
+    <div class="module-media">
+      <img
+        src="../../../assets/fea-assignment/fea-loads.png"
+        alt="Double-lug clevis finite element model with applied load and boundary conditions"
+        class="module-img"
+      >
+    </div>
+
+    <div class="module-text order-last">
+      <h2>2. Model Setup</h2>
+
+      <div class="responsive-math-container">
+        <p>
+          A 3D deformable solid model was prepared in CATIA V5 and analysed in Abaqus CAE.
+          The baseline clevis used a 64 mm bore and structural-steel material properties:
+          Young's modulus of 210 GPa and Poisson's ratio of 0.3.
+        </p>
+
+        <p>
+          The pin load was represented by a reference point positioned at the bore centre,
+          kinematically coupled to the inner faces of both lugs. A total vertical load of
+          500 kN was applied through this point, while the base was fully constrained to
+          isolate the structural response of the lugs.
+        </p>
+
+        <p>
+          This simplified rigid-pin coupling intentionally avoided explicit pin–lug contact,
+          allowing the study to focus on the comparative effects of geometry while retaining
+          a physically meaningful global load path.
+        </p>
+
+        <div class="math-block">
+          $$\sigma_{\mathrm{nom}} = \frac{F}{t \cdot h}$$
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="module-section reveal">
+    <div class="module-text">
+      <h2>3. Mesh Verification</h2>
+
+      <div class="responsive-math-container">
+        <p>
+          The clevis was meshed with C3D10 quadratic tetrahedral elements using
+          curvature-based refinement. This concentrated mesh density at the bore surface
+          and lug-root fillet, where high stress gradients were expected.
+        </p>
+
+        <p>
+          Mesh sensitivity was assessed across models ranging from approximately
+          3,400 to 185,000 elements. Displacement stabilised early, while peak stress
+          required greater refinement due to the sharper stress gradients at the fillets.
+        </p>
+
+        <p>
+          A mesh containing 67,230 elements was selected as the best balance between
+          computational cost and accuracy. The change in maximum stress between this mesh
+          and the finest model was approximately 1.8%, satisfying the adopted 3%
+          convergence criterion.
+        </p>
+
+        <p>
+          For an additional sanity check, a nominal-stress calculation produced a value of
+          approximately 80 MPa. This sat below the FEA peak stress, as expected for a
+          geometry containing stress-concentrating features, while remaining consistent in
+          order of magnitude with the distributed stress field.
+        </p>
+      </div>
+    </div>
+
+    <div class="module-media">
+      <div
+        class="carousel"
+        data-images='[
+          "../../../assets/fea-assignment/fea-convergence.png",
+          "../../../assets/fea-assignment/fea-mesh.png"
+        ]'>
+      </div>
+    </div>
+  </section>
+
+  <section class="module-section reveal">
+    <div class="module-media">
+      <img
+        src="../../../assets/fea-assignment/fea-baseline.png"
+        alt="Baseline displacement and von Mises stress contours"
+        class="module-img"
+      >
+    </div>
+
+    <div class="module-text order-last">
+      <h2>4. Baseline Stress Behaviour</h2>
+
+      <p>
+        The baseline configuration used a 64 mm bore and a 1 mm lug-root fillet.
+        The deformation contour showed symmetric upward displacement around the bore,
+        matching the expected load path generated by the central kinematic coupling.
+      </p>
+
+      <p>
+        Von Mises stress contours identified two dominant concentration regions:
+        the lower inner edge of the bore and the lug-base corners. A high-stress band
+        extended from the lower bore ligament into the fixed base, clearly revealing
+        the principal force-transfer path through the component.
+      </p>
+
+      <p>
+        The result also highlighted the limitation of the simplified loading method:
+        explicit contact was not modelled, so the upper bore rim did not develop the
+        contact pressure peak expected in a fully resolved pin–lug interaction.
+      </p>
+    </div>
+  </section>
+
+  <section class="module-section reveal">
+    <div class="module-text">
+      <h2>5. Bore Diameter Study</h2>
+
+      <div class="responsive-math-container">
+        <p>
+          Bore diameter was varied from 64 mm to 48 mm and 32 mm while retaining
+          the 1 mm fillet radius. Reducing the bore increased maximum vertical
+          displacement from 0.0166 mm to 0.0220 mm — approximately a 32% increase.
+        </p>
+
+        <p>
+          Although peak stress remained broadly similar at 222–226 MPa because the
+          lug-root fillet remained the dominant peak-stress location, distributed stress
+          around the bore increased as the bore became smaller.
+        </p>
+
+        <p>
+          The 95th-percentile von Mises stress increased from 49.6 MPa to 56.8 MPa,
+          showing that a smaller load-transfer area increases the broader stress level
+          even where it does not create the absolute peak stress.
+        </p>
+      </div>
+    </div>
+
+    <div class="module-media">
+      <img
+        src="../../../assets/fea-assignment/fea-bore-comparison.png"
+        alt="Stress comparison around 64 mm and 32 mm bore diameters"
+        class="module-img"
+      >
+    </div>
+  </section>
+
+  <section class="module-section reveal">
+    <div class="module-media">
+      <img
+        src="../../../assets/fea-assignment/fea-fillet-comparison.png"
+        alt="Stress comparison between small and large lug-root fillet radii"
+        class="module-img"
+      >
+    </div>
+
+    <div class="module-text order-last">
+      <h2>6. Fillet Radius Study</h2>
+
+      <div class="responsive-math-container">
+        <p>
+          The lug-root fillet radius had the clearest influence on the maximum stress.
+          Increasing the radius from 1 mm to 10 mm and then 20 mm progressively
+          smoothed the load path at the lug-base transition.
+        </p>
+
+        <div class="math-block">
+          $$\sigma_{\max}: 226\ \mathrm{MPa}\ (r = 1\ \mathrm{mm})
+          \longrightarrow
+          153\ \mathrm{MPa}\ (r = 20\ \mathrm{mm})$$
+        </div>
+
+        <p>
+          This represents an approximately 33% reduction in peak von Mises stress.
+          The larger fillet also reduced displacement slightly, from 0.0166 mm to
+          0.0154 mm, indicating a stiffer and smoother load-transfer route from the
+          bore into the base.
+        </p>
+
+        <p>
+          This made lug-root fillet sizing the most effective geometric design lever
+          identified in the study for reducing stress concentration without changing
+          the bore capacity.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="module-section reveal">
+    <div class="module-text">
+      <h2>7. Engineering Takeaways</h2>
+
+      <p>
+        The investigation demonstrated a complete finite element workflow: geometry
+        preparation, constraint and load definition, mesh verification, analytical
+        benchmarking, post-processing, and parametric design comparison.
+      </p>
+
+      <p>
+        The results showed that bore diameter influences distributed stress and
+        displacement, but the lug-root fillet radius governs the largest local stress
+        concentration. Increasing the fillet radius is therefore the most effective
+        route to reduce stress concentration and improve the component's likely
+        durability.
+      </p>
+
+      <p>
+        Future work would introduce explicit pin–lug contact, nonlinear material
+        response, and cyclic loading to assess plasticity and fatigue life under
+        representative service conditions.
+      </p>
+    </div>
+
+    <div class="module-media">
+      <img
+        src="../../../assets/fea-assignment/fea-baseline.png"
+        alt="Final stress reduction comparison"
+        class="module-img"
+      >
+    </div>
+  </section>
+
+  <section class="module-cta">
+    <div class="module-cta-inner">
+      <h3>Full Technical Report</h3>
+      <h2>Download the Assignment</h2>
+
+      <p class="module-cta-text">
+        The complete report includes model assumptions, mesh sensitivity data,
+        parametric results, and full FEA contour outputs.
+      </p>
+
+      <a
+        href="../../../assets/fea-assignment/492991-FEA-Assignment.pdf"
+        download
+        class="btn primary module-download"
+      >
+        ↓ Download Full Report (PDF)
+      </a>
+
+      <a href="../../modules.html" class="btn secondary module-back">
+        ← Back to Modules
+      </a>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <p>© 2026 Isaac Summers</p>
+</footer>
+
+<script src="fea-assignment.js"></script>
+</body>
+</html>
